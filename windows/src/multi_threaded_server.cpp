@@ -36,6 +36,7 @@ void siginthandler(int __attribute__((unused)) param)
 }
 
 void WorkerThread::run() {
+    // WorkerThread::setTerminationEnabled(true);
     std::cout << "Before server->run()" << std::endl;
     server->run();
     std::cout << "After server->run()" << std::endl;
@@ -57,7 +58,6 @@ int main (int argc, char** argv)
     signal(SIGINT, siginthandler);
 
     keyboard_server::KeyboardEmulator* emu = new keyboard_server::KeyboardEmulator();
-    // TODO delete after usage
 
     server = new keyboard_server::qt::UDPKeyboardServer(port, emu);
     if (server->canStart()) {
