@@ -46,7 +46,8 @@ add_executable (tray_icon_app
                 qt/UDPKeyboardServer.cpp
                 #ConfigurationWindow.cpp
                 tray_icon_app.cpp)
-target_link_libraries(tray_icon_app -lstdc++)
+target_link_libraries(tray_icon_app -lstdc++
+                      -Wl,-subsystem,windows) # this line avoids the CLI to show up on Windows
 qt5_use_modules(tray_icon_app Network Concurrent Widgets)
                 
 set (WindowsKeyboardServer_VERSION_MAJOR 1)

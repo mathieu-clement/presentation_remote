@@ -50,11 +50,11 @@ void UDPKeyboardServer::receiveDatagrams()
 
 void UDPKeyboardServer::processDatagram(QByteArray datagram)
 {
-    std::cout << "Datagram" << std::endl;
+    //std::cout << "Datagram" << std::endl;
     if (datagram.size() > 0) {
-        std::cout << "Received " << datagram.size() << " bytes:" 
-                  /* << "'" << buffer << "'" */
-                  << std::endl;  
+    //    std::cout << "Received " << datagram.size() << " bytes:" 
+    //              /* << "'" << buffer << "'" */
+    //              << std::endl;  
         mIsProcessingSema->acquire();
         mIsProcessing = true;
         mIsProcessingSema->release();

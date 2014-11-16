@@ -44,12 +44,12 @@ void quitGracefully()
     if (server) {
         server->isProcessingSema()->acquire();
         if(server->isProcessing()) {
-        std::cout << "Exiting gracefully (pending request)" << std::endl;
+        //std::cout << "Exiting gracefully (pending request)" << std::endl;
             server->isProcessingSema()->release();
             server->stop();
             delete server;
         } else {
-            std::cout << "Exiting gracefully (kind of, NO pending request)" << std::endl;
+            //std::cout << "Exiting gracefully (kind of, NO pending request)" << std::endl;
             server->isProcessingSema()->release();
             delete server;
             if (workerThread) {
@@ -70,9 +70,9 @@ void siginthandler(int __attribute__((unused)) param)
 
 void WorkerThread::run() {
     // WorkerThread::setTerminationEnabled(true);
-    std::cout << "Before server->run()" << std::endl;
+    //std::cout << "Before server->run()" << std::endl;
     server->run();
-    std::cout << "After server->run()" << std::endl;
+    //std::cout << "After server->run()" << std::endl;
 }
 
 
@@ -173,12 +173,12 @@ int main (int argc, char** argv)
     bool status = 1;
 
     if (server->canStart()) {
-        std::cout << "Server could start." << std::endl;
+        //std::cout << "Server could start." << std::endl;
 
         workerThread = new WorkerThread();
-        std::cout << "Before start" << std::endl;
+        //std::cout << "Before start" << std::endl;
         workerThread->start();
-        std::cout << "After start" << std::endl;
+        //std::cout << "After start" << std::endl;
 
         QApplication app(argc, argv);
         app.setOrganizationName("Mathieu Clement");
@@ -203,10 +203,10 @@ int main (int argc, char** argv)
         delete contextMenu;
         delete myObj;
         workerThread->wait();
-        std::cout << "After wait" << std::endl;
+        //std::cout << "After wait" << std::endl;
         delete workerThread;
     } else {
-        std::cout << "Server could not start." << std::endl;
+        std::cerr << "Server could not start." << std::endl;
     }
 
     delete server;
@@ -232,7 +232,7 @@ void MyTrayIconAppObject::setTrayIcon(QSystemTrayIcon* icon)
 
 void MyTrayIconAppObject::quitApplication()
 {
-    std::cout << "Application will exit." << std::endl;
+    //std::cout << "Application will exit." << std::endl;
     this->trayIcon->setVisible(false);
     quitGracefully();
     exit(EXIT_SUCCESS);
