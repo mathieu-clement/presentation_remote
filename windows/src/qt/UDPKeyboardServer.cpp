@@ -8,9 +8,9 @@
 namespace keyboard_server {
 namespace qt {
 
-UDPKeyboardServer::UDPKeyboardServer(int port) : KeyboardServer(port), mMustStop(false)
+UDPKeyboardServer::UDPKeyboardServer(int port, KeyboardEmulator* emu) 
+: KeyboardServer(port, emu), mMustStop(false)
 {
-    emu = new KeyboardEmulator();
     socket = new QUdpSocket();
     socket->bind(QHostAddress::LocalHost, port);
 }
@@ -18,7 +18,6 @@ UDPKeyboardServer::UDPKeyboardServer(int port) : KeyboardServer(port), mMustStop
 UDPKeyboardServer::~UDPKeyboardServer()
 {
     if (mCanStart) {
-        delete emu;
         delete socket;
     }
 }
@@ -33,7 +32,7 @@ void UDPKeyboardServer::run()
     }
 }
 
-void UDPKeyboardServer::receiveDatagrams() const
+void UDPKeyboardServer::receiveDatagrams()
 {
     while (socket->hasPendingDatagrams()) {
         QByteArray datagram;
@@ -47,20 +46,28 @@ void UDPKeyboardServer::receiveDatagrams() const
     } // not must stop
 }
 
-void UDPKeyboardServer::processDatagram(QByteArray datagram) const
+void UDPKeyboardServer::processDatagram(QByteArray datagram)
 {
     std::cout << "Datagram" << std::endl;
     if (datagram.size() > 0) {
         std::cout << "Received " << datagram.size() << " bytes:" 
                   /* << "'" << buffer << "'" */
                   << std::endl;  
+        mIsProcessingSema->acquire();
+        mIsProcessing = true;
+        mIsProcessingSema->release();
+
         emu->pressKey((KeyCode) datagram.data()[0], (Modifier) datagram.data()[1]);
+
+        mIsProcessingSema->acquire();
+        mIsProcessing = false;
+        mIsProcessingSema->release();
     }
 } // end run()
 
 void UDPKeyboardServer::stop()
 {
-    // TODO Disconnect signal from slot
+    mMustStop = true;
 }
 
 } // end of namespace qt

@@ -8,6 +8,8 @@
 // Uses API described in 
 // http://msdn.microsoft.com/en-us/library/ms646310.aspx
 
+#include <QThread>
+
 namespace keyboard_server {
 
 KeyboardEmulator::KeyboardEmulator()
@@ -62,7 +64,9 @@ INPUT KeyboardEmulator::makeINPUT(WORD wVk, bool isPressed) const
 
 void KeyboardEmulator::sleep(int ms) const
 {
-    Sleep(ms);
+    //Sleep(ms);
+    // QThread::msleep() might be useful as it is platform-independent
+    QThread::msleep(ms);
 }
 
 } // end of namespace

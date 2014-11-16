@@ -23,7 +23,8 @@
 namespace keyboard_server {
 namespace winsock {
 
-UDPKeyboardServer::UDPKeyboardServer(int port) : KeyboardServer(port), mMustStop(false)
+UDPKeyboardServer::UDPKeyboardServer(int port, KeyboardEmulator* emu) 
+: KeyboardServer(port, emu), mMustStop(false)
 {
     WSADATA wsaData;
     int iResult = WSAStartup(MAKEWORD(2,2), &wsaData); // WinSock version 2.2
@@ -70,7 +71,6 @@ void UDPKeyboardServer::run()
     int client_length;
     int BUFFER_SIZE = 32;
     char buffer[BUFFER_SIZE];
-    KeyboardEmulator emu;
     while (!mMustStop) {
         memset(buffer, '\0', BUFFER_SIZE);
         struct sockaddr_in client;
@@ -85,7 +85,7 @@ void UDPKeyboardServer::run()
             std::cout << "Received " << bytes_received << " bytes:" 
                       /* << "'" << buffer << "'" */
                       << std::endl;  
-            emu.pressKey((KeyCode) buffer[0], (Modifier) buffer[1]);
+            emu->pressKey((KeyCode) buffer[0], (Modifier) buffer[1]);
         }
     } // end while not must stop
 } // end run()

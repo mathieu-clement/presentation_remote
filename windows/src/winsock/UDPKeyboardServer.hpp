@@ -24,7 +24,7 @@ namespace winsock {
 
 class UDPKeyboardServer : public KeyboardServer {
     public:
-        UDPKeyboardServer(int port);
+        UDPKeyboardServer(int port, KeyboardEmulator* emu);
         ~UDPKeyboardServer();
 
         void run(); // blocking

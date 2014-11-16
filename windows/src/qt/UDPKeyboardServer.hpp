@@ -12,14 +12,14 @@ namespace qt {
 
 class UDPKeyboardServer : public KeyboardServer {
     public:
-        UDPKeyboardServer(int port);
+        UDPKeyboardServer(int port, KeyboardEmulator* emu);
         ~UDPKeyboardServer();
 
         void run(); // blocking
         void stop();
     private:
-        void receiveDatagrams() const;
-        void processDatagram(QByteArray) const;
+        void receiveDatagrams();
+        void processDatagram(QByteArray); 
 
         bool mMustStop;
         QUdpSocket* socket;

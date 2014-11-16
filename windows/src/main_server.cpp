@@ -13,7 +13,7 @@ void siginthandler(int param)
         server->stop();
         std::cout << "Exiting gracefully" << std::endl;
     }
-    exit(EXIT_SUCCESS);
+    //exit(EXIT_SUCCESS);
 }
 
 int main (int argc, char** argv)
@@ -31,7 +31,9 @@ int main (int argc, char** argv)
 
     signal(SIGINT, siginthandler);
 
-    server = new keyboard_server::qt::UDPKeyboardServer(port);
+    keyboard_server::KeyboardEmulator* emu = new keyboard_server::KeyboardEmulator();
+
+    server = new keyboard_server::qt::UDPKeyboardServer(port, emu);
     if (server->canStart()) {
         std::cout << "Server could start." << std::endl;
         server->run();
