@@ -5,6 +5,7 @@
 #include "KeyboardEmulator.hpp"
 
 #include <QSemaphore>
+#include <QString>
 
 namespace keyboard_server {
 
@@ -20,8 +21,13 @@ class KeyboardServer {
                                    // Needed because pressKey() must not be interrupted,
                                    // otherwise key stays pressed forever.
         QSemaphore* isProcessingSema() const;
+        virtual QString serverIpAddress() const = 0;
+        virtual bool isIPv4Address() const = 0;
+        virtual bool isIPv6Address() const = 0;
+        virtual bool onAllInterfaces() const = 0;
+        int port() const;
     protected:
-        int port;
+        int mPort;
         KeyboardEmulator* emu;
         bool mCanStart;
         bool mIsProcessing;

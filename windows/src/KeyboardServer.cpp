@@ -5,7 +5,7 @@
 namespace keyboard_server {
 
 KeyboardServer::KeyboardServer(int port, KeyboardEmulator* emu) 
-: port(port), emu(emu), mCanStart(true), mIsProcessingSema(new QSemaphore(1))
+: mPort(port), emu(emu), mCanStart(true), mIsProcessingSema(new QSemaphore(1))
 {
 }
 
@@ -27,6 +27,11 @@ bool KeyboardServer::isProcessing() const
 QSemaphore* KeyboardServer::isProcessingSema() const
 {
     return mIsProcessingSema;
+}
+
+int KeyboardServer::port() const
+{
+    return mPort;
 }
 
 } // end of namespace

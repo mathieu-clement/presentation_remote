@@ -1,3 +1,9 @@
+/**
+
+    Single-threaded server. Less problems to worry about.
+
+*/
+
 //#include "winsock/UDPKeyboardServer.hpp"
 #include "qt/UDPKeyboardServer.hpp"
 #include <iostream>

@@ -5,6 +5,8 @@
 #include <iostream>
 #include <stdio.h>
 
+#include <QAbstractSocket>
+
 namespace keyboard_server {
 namespace qt {
 
@@ -12,7 +14,7 @@ UDPKeyboardServer::UDPKeyboardServer(int port, KeyboardEmulator* emu)
 : KeyboardServer(port, emu), mMustStop(false)
 {
     socket = new QUdpSocket();
-    socket->bind(QHostAddress::LocalHost, port);
+    socket->bind(port);
 }
 
 UDPKeyboardServer::~UDPKeyboardServer()
@@ -68,6 +70,28 @@ void UDPKeyboardServer::processDatagram(QByteArray datagram)
 void UDPKeyboardServer::stop()
 {
     mMustStop = true;
+}
+
+QString UDPKeyboardServer::serverIpAddress() const
+{
+    return socket->localAddress().toString();
+}
+
+bool UDPKeyboardServer::onAllInterfaces() const
+{
+    return socket->localAddress() == QHostAddress::AnyIPv4 ||
+           socket->localAddress() == QHostAddress::AnyIPv6 ||
+           socket->localAddress() == QHostAddress::Any;
+}
+
+bool UDPKeyboardServer::isIPv4Address() const
+{
+    return socket->localAddress().protocol() == QAbstractSocket::IPv4Protocol;
+}
+
+bool UDPKeyboardServer::isIPv6Address() const
+{
+    return socket->localAddress().protocol() == QAbstractSocket::IPv6Protocol;
 }
 
 } // end of namespace qt

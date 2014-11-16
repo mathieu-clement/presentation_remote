@@ -1,3 +1,11 @@
+/**
+
+    Multi-threaded server.
+    The networking and threading code is platform-INdependent.
+    The KeyboardEmulator is platform-dependent, but by 
+    subclassing, it would not be very difficult to make it platform-independent.
+
+*/
 //#include "winsock/UDPKeyboardServer.hpp"
 #include "multi_threaded_server.hpp"
 #include "qt/UDPKeyboardServer.hpp"

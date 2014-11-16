@@ -17,6 +17,11 @@ class UDPKeyboardServer : public KeyboardServer {
 
         void run(); // blocking
         void stop();
+        
+        QString serverIpAddress() const;
+        bool isIPv4Address() const;
+        bool isIPv6Address() const;
+        bool onAllInterfaces() const;
     private:
         void receiveDatagrams();
         void processDatagram(QByteArray); 
