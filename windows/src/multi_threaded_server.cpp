@@ -17,8 +17,8 @@ void siginthandler(int __attribute__((unused)) param)
         server->isProcessingSema()->acquire();
         if(server->isProcessing()) {
         std::cout << "Exiting gracefully (pending request)" << std::endl;
-            server->stop();
             server->isProcessingSema()->release();
+            server->stop();
             delete server;
         } else {
             std::cout << "Exiting gracefully (kind of, NO pending request)" << std::endl;
