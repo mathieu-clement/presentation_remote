@@ -21,6 +21,7 @@
 #include <stdio.h>
 
 namespace keyboard_server {
+namespace winsock {
 
 UDPKeyboardServer::UDPKeyboardServer(int port) : KeyboardServer(port), mMustStop(false)
 {
@@ -94,4 +95,5 @@ void UDPKeyboardServer::stop()
     mMustStop = true;
 }
 
-} // end of namespace
+} // end of namespace winsock
+} // end of namespace keyboard_server

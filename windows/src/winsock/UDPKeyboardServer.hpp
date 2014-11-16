@@ -1,6 +1,6 @@
 #pragma once
-#ifndef UDP_KEYBOARD_SERVER_HPP
-#define UDP_KEYBOARD_SERVER_HPP
+#ifndef winsock_UDP_KEYBOARD_SERVER_HPP
+#define winsock_UDP_KEYBOARD_SERVER_HPP
 
 #include "KeyboardServer.hpp"
 
@@ -20,6 +20,7 @@
 // For MinGW, link with "-ws2_32"
 
 namespace keyboard_server {
+namespace winsock {
 
 class UDPKeyboardServer : public KeyboardServer {
     public:
@@ -33,7 +34,8 @@ class UDPKeyboardServer : public KeyboardServer {
         bool mMustStop;
 }; // end of class
 
-} // end of namespace
+} // end of namespace winsock
+} // end of namespace keyboard_server
 
 #endif
 

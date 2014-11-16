@@ -26,9 +26,7 @@ int main (int argc, char** argv)
         return 1;
     }
 
-    using namespace keyboard_server;
-    
-    KeyboardServer* server = new UDPKeyboardServer(port);
+    keyboard_server::KeyboardServer* server = new keyboard_server::winsock::UDPKeyboardServer(port);
     if (server->canStart()) {
         std::cout << "Server could start." << std::endl;
 

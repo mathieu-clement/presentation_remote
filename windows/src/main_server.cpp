@@ -1,6 +1,20 @@
-#include "winsock/UDPKeyboardServer.hpp"
+//#include "winsock/UDPKeyboardServer.hpp"
+#include "qt/UDPKeyboardServer.hpp"
 #include <iostream>
 #include <inttypes.h>
+#include <signal.h>
+#include <cstdlib>
+
+keyboard_server::KeyboardServer* server = NULL;
+
+void siginthandler(int param)
+{
+    if (server) {
+        server->stop();
+        std::cout << "Exiting gracefully" << std::endl;
+    }
+    exit(EXIT_SUCCESS);
+}
 
 int main (int argc, char** argv)
 {
@@ -15,9 +29,9 @@ int main (int argc, char** argv)
         return 1;
     }
 
-    using namespace keyboard_server;
-    
-    KeyboardServer* server = new UDPKeyboardServer(port);
+    signal(SIGINT, siginthandler);
+
+    server = new keyboard_server::qt::UDPKeyboardServer(port);
     if (server->canStart()) {
         std::cout << "Server could start." << std::endl;
         server->run();
