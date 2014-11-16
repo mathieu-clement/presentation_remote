@@ -16,6 +16,7 @@ class MyTrayIconAppObject : public QObject
 
     public slots:
         void quitApplication();
+        void iconActivated(QSystemTrayIcon::ActivationReason reason);
 
     private:
         QSystemTrayIcon* trayIcon;

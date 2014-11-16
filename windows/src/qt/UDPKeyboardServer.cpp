@@ -14,7 +14,7 @@ UDPKeyboardServer::UDPKeyboardServer(int port, KeyboardEmulator* emu)
 : KeyboardServer(port, emu), mMustStop(false)
 {
     socket = new QUdpSocket();
-    socket->bind(port);
+    mCanStart = socket->bind(port);
 }
 
 UDPKeyboardServer::~UDPKeyboardServer()

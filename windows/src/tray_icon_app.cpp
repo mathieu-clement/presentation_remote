@@ -36,6 +36,7 @@
 
 keyboard_server::KeyboardServer* server = NULL;
 WorkerThread* workerThread = NULL;
+QSystemTrayIcon* icon;
 
 
 void quitGracefully()
@@ -75,12 +76,12 @@ void WorkerThread::run() {
 }
 
 
-void showMessage(QSystemTrayIcon* icon, keyboard_server::KeyboardServer* server) {
+void showMessage() {
 
         if(QSystemTrayIcon::supportsMessages()) {
             std::stringstream msgStream;
             msgStream << "Listening on port " 
-                      << server->port() << " on:" << std::endl;
+                      << server->port() << " on these interfaces:" << std::endl;
             if (!server->onAllInterfaces()) {
                 msgStream << server->serverIpAddress().toStdString();
             } else {
@@ -131,23 +132,43 @@ int main (int argc, char** argv)
                  << std::endl;
         exit(EXIT_FAILURE);
     }
-    
-    if (argc < 2) {
-        std::cerr << "Missing argument PORT" << std::endl;
-        return 1;
-    }
 
-    uintmax_t port = strtoumax(argv[1], NULL, 10);
-    if (port == UINTMAX_MAX && errno == ERANGE) {
-        std::cerr << "Could not convert " << argv[1] << " to integer." << std::endl;
-        return 1;
-    }
-
-    signal(SIGINT, siginthandler);
+    // See example
+    // http://qt-project.org/doc/qt-4.8/desktop-systray.html
+   
 
     keyboard_server::KeyboardEmulator* emu = new keyboard_server::KeyboardEmulator();
+    
+    if (argc < 2) {
+        // Port missing, find next available port, starting from 12000
+        for (int port = 12000; port < 65000; ++port) {
+            server = new keyboard_server::qt::UDPKeyboardServer(port, emu);
+            if(!server->canStart()) {
+                delete server;
+            } else {
+                break;
+            }
+        }
+        // POST: Server can start
+    } else {
+        // Read port from command-line
+        // Convert from string to integer
+        uintmax_t port = strtoumax(argv[1], NULL, 10);
+        if (port == UINTMAX_MAX && errno == ERANGE) {
+            std::cerr << "Could not convert " << argv[1] << " to integer." << std::endl;
+            return 1;
+        }
 
-    server = new keyboard_server::qt::UDPKeyboardServer(port, emu);
+        server = new keyboard_server::qt::UDPKeyboardServer(port, emu);
+    }
+
+    if(!server->canStart()) {
+        std::cerr << "Server can't start." << std::endl;
+        exit(EXIT_FAILURE);
+    }
+
+
+    signal(SIGINT, siginthandler);
 
     bool status = 1;
 
@@ -165,14 +186,16 @@ int main (int argc, char** argv)
 
         MyTrayIconAppObject* myObj = new MyTrayIconAppObject();
 
-        QSystemTrayIcon* icon = new QSystemTrayIcon(); // the tray icon
+        icon = new QSystemTrayIcon(); // the tray icon
         myObj->setTrayIcon(icon);
         icon->setIcon(QIcon(QString(MY_TRAY_ICON_PATH)));
         QMenu* contextMenu = createContextMenu(myObj);
         icon->setContextMenu(contextMenu);
+        QObject::connect(icon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+                         myObj, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
         icon->show();
 
-        showMessage(icon, server);
+        showMessage();
 
         status = app.exec();
 
@@ -214,3 +237,18 @@ void MyTrayIconAppObject::quitApplication()
     quitGracefully();
     exit(EXIT_SUCCESS);
 }
+
+void MyTrayIconAppObject::iconActivated(QSystemTrayIcon::ActivationReason reason)
+ {
+     switch (reason) {
+         case QSystemTrayIcon::Trigger:
+         case QSystemTrayIcon::DoubleClick:
+             showMessage();
+             break;
+         case QSystemTrayIcon::MiddleClick:
+             showMessage();
+             break;
+         default:
+             ;
+     }
+ }
