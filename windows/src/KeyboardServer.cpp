@@ -2,9 +2,8 @@
 
 namespace keyboard_server {
 
-KeyboardServer::KeyboardServer(int port) : mCanStart(true)
+KeyboardServer::KeyboardServer(int port) : port(port), mCanStart(true)
 {
-    this->port = port;
 }
 
 KeyboardServer::~KeyboardServer()
