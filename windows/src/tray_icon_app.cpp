@@ -81,7 +81,7 @@ void showMessage() {
         if(QSystemTrayIcon::supportsMessages()) {
             std::stringstream msgStream;
             msgStream << "Listening on port " 
-                      << server->port() << " on these interfaces:" << std::endl;
+                      << server->port() << std::endl;
             if (!server->onAllInterfaces()) {
                 msgStream << server->serverIpAddress().toStdString();
             } else {
