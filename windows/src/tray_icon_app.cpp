@@ -118,6 +118,7 @@ void showMessage(QSystemTrayIcon* icon, keyboard_server::KeyboardServer* server)
         } // supports messages
 
         // TODO React to click on icon and show message again
+        // TODO Detect MS PowerPoint, OpenOffice or Adobe automatically, incl. version.
 } // end showMessage()
 
 
