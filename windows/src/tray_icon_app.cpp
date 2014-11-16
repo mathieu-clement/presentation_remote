@@ -25,8 +25,9 @@
 #include <cstdlib>
 #include <inttypes.h>
 
+// icon. Uses QRC file.
 #ifndef MY_TRAY_ICON_PATH
-#define MY_TRAY_ICON_PATH "resources/images/tray_icon.png"
+#define MY_TRAY_ICON_PATH ":/images/tray_icon.png"
 #endif
 
 /* Duration of balloon in seconds */
