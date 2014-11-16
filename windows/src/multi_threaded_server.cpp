@@ -11,7 +11,7 @@
 keyboard_server::KeyboardServer* server = NULL;
 WorkerThread* workerThread = NULL;
 
-void siginthandler(int param)
+void siginthandler(int __attribute__((unused)) param)
 {
     if (server) {
         server->isProcessingSema()->acquire();
@@ -25,7 +25,8 @@ void siginthandler(int param)
             server->isProcessingSema()->release();
             delete server;
             if (workerThread) {
-                workerThread->exit();
+                workerThread->terminate();
+                workerThread->wait();
                 delete workerThread;
             }
             exit(EXIT_SUCCESS);

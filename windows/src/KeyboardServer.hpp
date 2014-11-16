@@ -11,7 +11,7 @@ namespace keyboard_server {
 class KeyboardServer {
     public:
         KeyboardServer(int port, KeyboardEmulator* emu);
-        ~KeyboardServer();
+        virtual ~KeyboardServer();
 
         virtual void run() = 0; // blocking
         virtual void stop() = 0; // must be invoked from another thread.

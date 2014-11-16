@@ -46,7 +46,7 @@ enum Modifier {
 class KeyboardEmulator {
     public:
         KeyboardEmulator();
-        ~KeyboardEmulator();
+        virtual ~KeyboardEmulator();
         
         void pressKey(char,    Modifier = MODIFIER_NONE) const;
         void pressKey(KeyCode, Modifier = MODIFIER_NONE) const;
