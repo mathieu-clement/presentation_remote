@@ -2,13 +2,19 @@
 #ifndef qt_UDP_KEYBOARD_SERVER_HPP
 #define qt_UDP_KEYBOARD_SERVER_HPP
 
-#include "KeyboardServer.hpp"
-#include "KeyboardEmulator.hpp"
+#include "../KeyboardServer.hpp"
+#include "../KeyboardEmulator.hpp"
+#include "../commands/AbstractCommand.hpp"
 
 #include <QUdpSocket>
+#include <QHostAddress>
 
 namespace keyboard_server {
 namespace qt {
+
+enum MagicCommand {
+    PING_COMMAND = 0x01
+};
 
 class UDPKeyboardServer : public KeyboardServer {
     public:
@@ -24,7 +30,12 @@ class UDPKeyboardServer : public KeyboardServer {
         bool onAllInterfaces() const;
     private:
         void receiveDatagrams();
-        void processDatagram(QByteArray); 
+        void processDatagram(QByteArray, QHostAddress&, quint16); 
+        void processMagicCommand(MagicCommand, QByteArray& cmdData,
+                                 QHostAddress& sender, quint16 senderPort);
+        // Callback that is passed as parameter to a Command
+        void callbackForMagicCommand (QByteArray& outputData);
+        keyboard_server::commands::AbstractCommand& findCommandInstance(MagicCommand);
 
         bool mMustStop;
         QUdpSocket* socket;

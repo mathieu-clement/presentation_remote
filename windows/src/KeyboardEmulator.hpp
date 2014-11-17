@@ -8,7 +8,7 @@
 
 namespace keyboard_server {
 
-enum KeyCode {
+enum KeyCode { // 1 byte
     KEYCODE_DOWN = VK_DOWN, 
     KEYCODE_UP = VK_UP,
     KEYCODE_RIGHT = VK_RIGHT,
@@ -32,10 +32,13 @@ enum KeyCode {
     KEYCODE_FUNCTION_9  = VK_F9,
     KEYCODE_FUNCTION_10 = VK_F10,
     KEYCODE_FUNCTION_11 = VK_F11,
-    KEYCODE_FUNCTION_12 = VK_F12
+    KEYCODE_FUNCTION_12 = VK_F12,
+
+    KEYCODE_MAGIC = 0xFF // Special non synthetized commands
+                         // For instance for server ping
 };
 
-enum Modifier {
+enum Modifier { // 1 byte
     // [Our Name] = [Microsoft Virtual Key code]
     MODIFIER_NONE = 0,
     MODIFIER_CTRL = VK_CONTROL,

@@ -34,6 +34,7 @@ qt5_use_modules(single_threaded_server Network)
 add_executable (multi_threaded_server 
                 KeyboardEmulator.cpp KeyboardServer.cpp
                 qt/UDPKeyboardServer.cpp
+                commands/PongCommand.cpp
                 multi_threaded_server.cpp)
 target_link_libraries(multi_threaded_server -lstdc++)
 qt5_use_modules(multi_threaded_server Network Concurrent)
@@ -47,7 +48,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_executable (tray_icon_app 
                 KeyboardEmulator.cpp KeyboardServer.cpp
                 qt/UDPKeyboardServer.cpp
-                #ConfigurationWindow.cpp
+                commands/PongCommand.cpp
                 tray_icon_app.cpp
                 ${ResourceSources})
 target_link_libraries(tray_icon_app -lstdc++
