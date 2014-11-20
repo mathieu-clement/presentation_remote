@@ -50,7 +50,17 @@ public enum KeyCode {
     W(0x57),
     X(0x58),
     Y(0x59),
-    Z(0x5A);
+    Z(0x5A),
+    NUMPAD_0(0x60),
+    NUMPAD_1(0x61),
+    NUMPAD_2(0x62),
+    NUMPAD_3(0x63),
+    NUMPAD_4(0x64),
+    NUMPAD_5(0x65),
+    NUMPAD_6(0x66),
+    NUMPAD_7(0x67),
+    NUMPAD_8(0x68),
+    NUMPAD_9(0x69),;
 
 
     private int vkCode; // Microsoft VK Code
@@ -58,15 +68,22 @@ public enum KeyCode {
 
     // Uppercase letters can be used as key code
     // or digits (matching the keys below the function keys)
+
+    /**
+     * Create keycode from letter
+     * @param letter lowercase or uppercase letter
+     * @return keycode for the letter key
+     */
     public KeyCode createFromLetter(char letter) {
-        assert Character.isUpperCase(letter);
-        return KeyCode.valueOf(String.format("%c", letter));
+        char upper = Character.toUpperCase(letter);
+        return KeyCode.valueOf(String.format("%c", upper));
     }
 
     //
 
     /**
-     * Create keycode from digit (matching the keys below the function keys)
+     * Create keycode from digit (matching the keys on the row
+     * below the function keys)
      * @param digit digit
      * @return keycode matching the key below the function keys
      */
@@ -77,10 +94,19 @@ public enum KeyCode {
     // Uppercase letters can be used as key code
     // or digits (matching the keys below the function keys)
     public KeyCode createKeypadKeyCodeFromDigit(int digit) {
-        return KeyCode.valueOf(String.format("DIGIT_%d", digit));
+        return KeyCode.valueOf(String.format("NUMPAD_%d", digit));
     }
 
-    KeyCode(int vkCode) {
+    // Associate Microsoft VK code to KeyCode instance.
+    private KeyCode(int vkCode) {
         this.vkCode = vkCode;
+    }
+
+    /**
+     * Returns the Microsoft VK code for the Windows API (windows.h).
+     * @return Microsoft VK code
+     */
+    public int getVkCode() {
+        return vkCode;
     }
 }
