@@ -22,7 +22,6 @@ public enum KeyCode {
     MULTIPLY(0x6A),
     DIVIDE(0x6F),
     PERIOD(0xBE), DOT(0xBE),
-    // TODO Add F1 - F12
     FUNCTION_1(0x70),
     FUNCTION_2(0x71),
     FUNCTION_3(0x72),

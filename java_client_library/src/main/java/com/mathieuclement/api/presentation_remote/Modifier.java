@@ -3,6 +3,8 @@ package com.mathieuclement.api.presentation_remote;
 public enum Modifier {
     SHIFT(0x10),
     CTRL(0x11),
+    LEFT_CTRL(0xA2),
+    RIGHT_CTRL(0xA3),
     ALT(0x12),
     LEFT_WINDOWS(KeyCode.LEFT_WINDOWS.getVkCode()),
     RIGHT_WINDOWS(KeyCode.RIGHT_WINDOWS.getVkCode());
