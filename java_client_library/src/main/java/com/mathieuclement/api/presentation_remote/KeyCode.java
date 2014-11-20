@@ -106,24 +106,31 @@ public enum KeyCode {
      */
     public KeyCode createFromOperation(char operation) {
         switch (operation) {
-            case '+':
-                return KeyCode.ADD;
-
-            case '-':
-                return KeyCode.SUBTRACT;
-
-            case '*':
-                return KeyCode.MULTIPLY;
-
-            case '/':
-                return KeyCode.DIVIDE;
+            case '+': return KeyCode.ADD;
+            case '-': return KeyCode.SUBTRACT;
+            case '*': return KeyCode.MULTIPLY;
+            case '/': return KeyCode.DIVIDE;
 
             default:
                 throw new IllegalArgumentException("" + operation + " is not an operation.");
         }
     }
 
-    //
+    /**
+     * Create keycode from punctuation
+     * @param punctuation '.', ','
+     * @return keycode
+     */
+    public KeyCode createFromPunctuation(char punctuation) {
+        switch (punctuation) {
+            case '.': return KeyCode.PERIOD;
+            case ',': return KeyCode.COMMA;
+
+            default:
+                throw new IllegalArgumentException("" + punctuation + " is not a punctuation.");
+        }
+    }
+
 
     /**
      * Create keycode from digit (matching the keys on the row
