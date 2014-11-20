@@ -91,10 +91,11 @@ public enum KeyCode {
 
     /**
      * Create keycode from letter
-     * @param letter lowercase or uppercase letter
+     * @param letter lowercase or uppercase letter, will be sent as uppercase,
+     *               except if using shift modifier.
      * @return keycode for the letter key
      */
-    public KeyCode createFromLetter(char letter) {
+    public static KeyCode createFromLetter(char letter) {
         char upper = Character.toUpperCase(letter);
         return KeyCode.valueOf(String.format("%c", upper));
     }
@@ -104,7 +105,7 @@ public enum KeyCode {
      * @param operation '+', '-', '*', '/'
      * @return keycode
      */
-    public KeyCode createFromOperation(char operation) {
+    public static KeyCode createFromOperation(char operation) {
         switch (operation) {
             case '+': return KeyCode.ADD;
             case '-': return KeyCode.SUBTRACT;
@@ -121,7 +122,7 @@ public enum KeyCode {
      * @param punctuation '.', ','
      * @return keycode
      */
-    public KeyCode createFromPunctuation(char punctuation) {
+    public static KeyCode createFromPunctuation(char punctuation) {
         switch (punctuation) {
             case '.': return KeyCode.PERIOD;
             case ',': return KeyCode.COMMA;
@@ -138,13 +139,13 @@ public enum KeyCode {
      * @param digit digit
      * @return keycode matching the key below the function keys
      */
-    public KeyCode createRowKeyCodeFromDigit(int digit) {
+    public static KeyCode createRowKeyCodeFromDigit(int digit) {
         return KeyCode.valueOf(String.format("DIGIT_%d", digit));
     }
 
     // Uppercase letters can be used as key code
     // or digits (matching the keys below the function keys)
-    public KeyCode createKeypadKeyCodeFromDigit(int digit) {
+    public static KeyCode createKeypadKeyCodeFromDigit(int digit) {
         return KeyCode.valueOf(String.format("NUMPAD_%d", digit));
     }
 
