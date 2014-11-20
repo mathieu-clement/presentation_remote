@@ -1,6 +1,7 @@
 package com.mathieuclement.api.presentation_remote;
 
 public enum Modifier {
+    NONE(0x00),
     SHIFT(0x10),
     CTRL(0x11),
     LEFT_CTRL(0xA2),
