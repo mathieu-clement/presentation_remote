@@ -3,7 +3,7 @@ package com.mathieuclement.api.presentation_remote;
 import java.io.IOException;
 import java.net.*;
 
-public class UDPPresentationClient {
+public class UDPKeyboardEmulatorClient {
 
     private static final int BYTES_FOR_KEYCODE_AND_MODIFIER = 2;
 
@@ -19,7 +19,7 @@ public class UDPPresentationClient {
      * @throws SocketException      as thrown by {@link java.net.InetAddress#getByName(String)}
      * @throws UnknownHostException if IP address cannot be found for serverHost
      */
-    public UDPPresentationClient(String serverHost, int serverPort) throws SocketException, UnknownHostException {
+    public UDPKeyboardEmulatorClient(String serverHost, int serverPort) throws SocketException, UnknownHostException {
         socket = new DatagramSocket();
         this.serverInetAddress = InetAddress.getByName(serverHost);
         this.serverPort = serverPort;
@@ -33,7 +33,7 @@ public class UDPPresentationClient {
      * @throws SocketException      as thrown by {@link java.net.InetAddress#getByName(String)}
      * @throws UnknownHostException if IP address cannot be found for serverHost
      */
-    public UDPPresentationClient(String serverHost) throws SocketException, UnknownHostException {
+    public UDPKeyboardEmulatorClient(String serverHost) throws SocketException, UnknownHostException {
         socket = new DatagramSocket();
         this.serverInetAddress = InetAddress.getByName(serverHost);
         this.serverPort = 12000;
@@ -89,9 +89,9 @@ public class UDPPresentationClient {
 
     public static void main(String[] args) {
         try {
-            UDPPresentationClient client = new UDPPresentationClient("localhost", 12000);
+            UDPKeyboardEmulatorClient client = new UDPKeyboardEmulatorClient("localhost", 12000);
             client.sendKey(KeyCode.LEFT_WINDOWS);
-            client.sendString("Bryan est un petit fou");
+            client.sendString("Bryan est un petit fou.");
         } catch (SocketException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
