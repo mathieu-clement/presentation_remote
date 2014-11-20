@@ -89,12 +89,15 @@ public class UDPKeyboardEmulatorClient {
         try {
             UDPKeyboardEmulatorClient client = new UDPKeyboardEmulatorClient("localhost", 12000);
             client.sendKey(KeyCode.LEFT_WINDOWS);
+            Thread.sleep(500);
             client.sendString("Bryan est un petit fou.");
         } catch (SocketException e) {
             e.printStackTrace();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
