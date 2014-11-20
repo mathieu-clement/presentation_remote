@@ -124,6 +124,7 @@ public enum KeyCode {
      */
     public static KeyCode createFromPunctuation(char punctuation) {
         switch (punctuation) {
+            case ' ': return KeyCode.SPACE;
             case '.': return KeyCode.PERIOD;
             case ',': return KeyCode.COMMA;
 
@@ -147,6 +148,22 @@ public enum KeyCode {
     // or digits (matching the keys below the function keys)
     public static KeyCode createKeypadKeyCodeFromDigit(int digit) {
         return KeyCode.valueOf(String.format("NUMPAD_%d", digit));
+    }
+
+    public static KeyCode createFromChar(char c) {
+        if(Character.isDigit(c)) {
+            return createRowKeyCodeFromDigit(c);
+        } else if (Character.isLetter(c)) {
+            return createFromLetter(c);
+        } else {
+            // try punctuation and operation
+            try {
+                return createFromPunctuation(c);
+            } catch (IllegalArgumentException iae) {
+                return createFromOperation(c);
+                // If it fails here, then character is not supported.
+            }
+        }
     }
 
     // Associate Microsoft VK code to KeyCode instance.
