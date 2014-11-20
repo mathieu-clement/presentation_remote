@@ -4,6 +4,7 @@ public enum KeyCode {
     BACKSPACE(0x08),
     TAB(0x09),
     ENTER(0x0D),
+    ESCAPE(0x1B),
     SPACE(0x20),
     PAGE_UP(0x21),
     PAGE_DOWN(0x22),
