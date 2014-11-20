@@ -14,6 +14,27 @@ public enum KeyCode {
     UP(0x26),
     DOWN(0x28),
     DELETE(0x2E),
+    LEFT_WINDOWS(0x5B),
+    RIGHT_WINDOWS(0x5C),
+    ADD(0x6B),
+    COMMA(0xBC),
+    SUBTRACT(0xBD),
+    MULTIPLY(0x6A),
+    DIVIDE(0x6F),
+    PERIOD(0xBE), DOT(0xBE),
+    // TODO Add F1 - F12
+    FUNCTION_1(0x70),
+    FUNCTION_2(0x71),
+    FUNCTION_3(0x72),
+    FUNCTION_4(0x73),
+    FUNCTION_5(0x74),
+    FUNCTION_6(0x75),
+    FUNCTION_7(0x76),
+    FUNCTION_8(0x77),
+    FUNCTION_9(0x78),
+    FUNCTION_10(0x79),
+    FUNCTION_11(0x7A),
+    FUNCTION_12(0x7B),
     SLEEP(0x5F),
     DIGIT_0(0x30),
     DIGIT_1(0x31),
@@ -79,6 +100,30 @@ public enum KeyCode {
         return KeyCode.valueOf(String.format("%c", upper));
     }
 
+    /**
+     * Create keycode from operation
+     * @param operation '+', '-', '*', '/'
+     * @return keycode
+     */
+    public KeyCode createFromOperation(char operation) {
+        switch (operation) {
+            case '+':
+                return KeyCode.ADD;
+
+            case '-':
+                return KeyCode.SUBTRACT;
+
+            case '*':
+                return KeyCode.MULTIPLY;
+
+            case '/':
+                return KeyCode.DIVIDE;
+
+            default:
+                throw new IllegalArgumentException("" + operation + " is not an operation.");
+        }
+    }
+
     //
 
     /**
@@ -106,7 +151,7 @@ public enum KeyCode {
      * Returns the Microsoft VK code for the Windows API (windows.h).
      * @return Microsoft VK code
      */
-    public int getVkCode() {
+    int getVkCode() {
         return vkCode;
     }
 }

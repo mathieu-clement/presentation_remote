@@ -13,5 +13,9 @@ public class UDPPresentationClient {
         this.serverHost = serverHost;
     }
 
+    public void sendKey(KeyCode keyCode, Modifier modifier) {
+
+    }
+
 
 }
