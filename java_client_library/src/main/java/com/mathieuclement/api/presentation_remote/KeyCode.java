@@ -60,7 +60,7 @@ public enum KeyCode {
     NUMPAD_6(0x66),
     NUMPAD_7(0x67),
     NUMPAD_8(0x68),
-    NUMPAD_9(0x69),;
+    NUMPAD_9(0x69);
 
 
     private int vkCode; // Microsoft VK Code
