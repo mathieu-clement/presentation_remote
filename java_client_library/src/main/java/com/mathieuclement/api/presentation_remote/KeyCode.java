@@ -127,7 +127,7 @@ public enum KeyCode {
             case ',': return KeyCode.COMMA;
 
             default:
-                throw new IllegalArgumentException("" + punctuation + " is not a punctuation.");
+                throw new IllegalArgumentException("" + punctuation + " is not a known punctuation character.");
         }
     }
 
