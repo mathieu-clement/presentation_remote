@@ -73,16 +73,14 @@ public class UDPKeyboardEmulatorClient {
      *
      * @param str String to send
      */
-    public void sendString(String str) {
+    public void sendString(String str) throws IOException {
         char[] chars = str.toCharArray();
         for (char aChar : chars) {
             try {
                 sendKey(KeyCode.createFromChar(aChar),
                         Character.isUpperCase(aChar) ? Modifier.SHIFT : Modifier.NONE);
-            } catch (IOException e) {
-                e.printStackTrace();
             } catch (IllegalArgumentException iae) {
-                System.err.println("Could not send character '" + aChar + "'.");
+                throw new IOException("Could not send character '" + aChar + "'.", iae);
             }
         }
     }
