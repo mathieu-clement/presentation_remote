@@ -54,7 +54,4 @@ public class PresentationClient extends UDPKeyboardEmulatorClient {
     public void eraseOnScreenAnnotations() throws Exception {
         sendKey(KeyCode.createFromLetter('E'));
     }
-
-
-
 }
