@@ -10,7 +10,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by mathieu on 22.11.2014.
  */
-public class TestPress {
+public class UDPSwingTest {
     @Test
     public void testTypeSteve() throws Exception {
         // 1. Show an input dialog
