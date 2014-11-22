@@ -24,14 +24,23 @@ public class TestPress {
         Thread.sleep(1000); // Wait till dialog is displayed
 
         UDPKeyboardEmulatorClient client = new UDPKeyboardEmulatorClient("localhost");
-        client.sendString("Steve");
+        String text = "Steve is a very common first name.";
+        client.sendString(text);
         client.sendKey(KeyCode.ENTER);
 
-        Thread.sleep(1000);
-        thread.interrupt();
+        int maxTime = text.length(); // seconds. One second per letter.
+
+        int nbSeconds = 0;
+        while (!runnable.hasFinished() && nbSeconds < maxTime) {
+            Thread.sleep(1000); // Give it enough time to type the words
+            nbSeconds++;
+        }
+        if (nbSeconds > maxTime) {
+            thread.interrupt();
+        }
 
         assertTrue(runnable.hasFinished());
-        assertEquals("Steve", runnable.getOutput());
+        assertEquals(text, runnable.getOutput());
     }
 
     static class MyRunnable implements Runnable {
