@@ -8,6 +8,7 @@
 */
 //#include "winsock/UDPKeyboardServer.hpp"
 #include "multi_threaded_server.hpp"
+#include "KeyboardServer.hpp"
 #include "qt/UDPKeyboardServer.hpp"
 #include <iostream>
 #include <inttypes.h>

@@ -1,7 +1,8 @@
-#include "../KeyboardServer.hpp"
 #include "UDPKeyboardServer.hpp"
+#include "../KeyboardServer.hpp"
 #include "../KeyboardEmulator.hpp"
 #include "../commands/AbstractCommand.hpp"
+#include "../commands/PongCommand.hpp"
 
 #include <iostream>
 #include <stdexcept>
@@ -96,29 +97,27 @@ void UDPKeyboardServer::processMagicCommand(MagicCommand cmd,
                                             QHostAddress& sender, quint16 senderPort)
 {
         try {
-            keyboard_server::commands::AbstractCommand& cmdInstance = findCommandInstance(cmd);
+            keyboard_server::commands::AbstractCommand* cmdInstance = findCommandInstance(cmd);
             std::function<void(QByteArray&)> funcPointer = 
                 std::bind(&UDPKeyboardServer::callbackForMagicCommand, this,
                           std::placeholders::_1);
-            cmdInstance.execute(cmdData, funcPointer);
+            cmdInstance->execute(cmdData, funcPointer);
         } catch (std::invalid_argument& ia) {
             std::cerr << "Command '" << cmd << "' does not exist." << std::endl;
         }
 }
 
-keyboard_server::commands::AbstractCommand&
-UDPKeyboardServer::findCommandInstance(MagicCommand cmd)
+keyboard_server::commands::AbstractCommand*
+UDPKeyboardServer::findCommandInstance(MagicCommand cmd) const
 {
     // TODO:
     // Find command in HashMap<MagicCommand, AbstractCommand> = <enum, instance>
 
-    /*
-    keyboard_server::commands::AbstractCommand& cmdInstance =
-        keyboard_server::commands::PongCommand();
-    return cmdInstance;
-    */
+    keyboard_server::commands::PongCommand pong;
+    keyboard_server::commands::AbstractCommand* base = &pong;
+    return base;
 
-    //throw std::invalid_argument(std::string("Command does not exist."));
+    throw std::invalid_argument(std::string("Command does not exist."));
 }
 
 void UDPKeyboardServer::callbackForMagicCommand (QByteArray& outputData)

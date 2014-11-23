@@ -35,7 +35,7 @@ class UDPKeyboardServer : public KeyboardServer {
                                  QHostAddress& sender, quint16 senderPort);
         // Callback that is passed as parameter to a Command
         void callbackForMagicCommand (QByteArray& outputData);
-        keyboard_server::commands::AbstractCommand& findCommandInstance(MagicCommand);
+        keyboard_server::commands::AbstractCommand* findCommandInstance(MagicCommand) const;
 
         bool mMustStop;
         QUdpSocket* socket;

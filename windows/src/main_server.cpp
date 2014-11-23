@@ -6,6 +6,7 @@
 
 //#include "winsock/UDPKeyboardServer.hpp"
 #include "qt/UDPKeyboardServer.hpp"
+#include "KeyboardEmulator.hpp"
 #include <iostream>
 #include <inttypes.h>
 #include <signal.h>

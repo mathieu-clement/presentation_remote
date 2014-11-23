@@ -1,6 +1,6 @@
-#include "KeyboardServer.hpp"
+#include "../KeyboardServer.hpp"
 #include "UDPKeyboardServer.hpp"
-#include "KeyboardEmulator.hpp"
+#include "../KeyboardEmulator.hpp"
 
 // Historical Microsoft BS...
 // http://msdn.microsoft.com/en-us/library/windows/desktop/ms737629%28v=vs.85%29.aspx

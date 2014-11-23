@@ -2,7 +2,7 @@
 #ifndef winsock_UDP_KEYBOARD_SERVER_HPP
 #define winsock_UDP_KEYBOARD_SERVER_HPP
 
-#include "KeyboardServer.hpp"
+#include "../KeyboardServer.hpp"
 
 // Historical Microsoft BS...
 // http://msdn.microsoft.com/en-us/library/windows/desktop/ms737629%28v=vs.85%29.aspx
