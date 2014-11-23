@@ -2,6 +2,8 @@
 #ifndef command_ABSTRACT_COMMAND_HPP
 #define command_ABSTRACT_COMMAND_HPP
 
+#include <QByteArray>
+
 namespace keyboard_server {
 namespace commands {
 
@@ -17,7 +19,7 @@ class AbstractCommand {
          * @return true on success
          */
         virtual bool execute (QByteArray& inputData, 
-                              const std::function<void(QByteArray&)> &callback) = 0;
+                              std::function<void(QByteArray&)> &callback) = 0;
 
 };
 

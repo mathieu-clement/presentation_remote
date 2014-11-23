@@ -2,15 +2,16 @@
 #ifndef command_PONG_COMMAND_HPP
 #define command_PONG_COMMAND_HPP
 
+#include "AbstractCommand.hpp"
 #include <QByteArray>
 
 namespace keyboard_server {
 namespace commands {
 
-class PongCommand {
+class PongCommand : public AbstractCommand {
     public:
         bool execute (QByteArray& inputData, 
-                      const std::function<void(QByteArray&)>& callback);
+                      std::function<void(QByteArray&)>& callback);
 
 };
 
