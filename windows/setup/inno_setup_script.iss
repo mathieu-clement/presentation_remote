@@ -5,7 +5,7 @@
 #define MyAppVersion "1.0"
 #define MyAppPublisher "Mathieu Clement"
 #define MyAppURL "http://www.mathieuclement.com/"
-#define MyAppExeName "tray_icon_app.exe"
+#define MyAppExeName "presentation_server.exe"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -34,8 +34,9 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 ;Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 Name: "startauto"; Description: "Start automatically with my session"; GroupDescription: "Startup"; Flags: checkablealone
 
+
 [Files]
-Source: "C:\Users\mathieu\git_repositories\presentation_remote\windows\build\tray_icon_app.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\mathieu\git_repositories\presentation_remote\windows\build\tray_icon_app.exe"; DestDir: "{app}"; DestName: "{#MyAppExeName}"; Flags: ignoreversion
 Source: "C:\Users\mathieu\git_repositories\presentation_remote\windows\dll\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "C:\Users\mathieu\git_repositories\presentation_remote\windows\resources\*"; DestDir: "{app}/resources"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
@@ -51,3 +52,11 @@ Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChang
 [Registry]
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "{#MyAppName}"; ValueData: """{app}\{#MyAppExeName}"""; Flags: uninsdeletevalue; Tasks: startauto
 
+[Code]
+function InitializeUninstall(): Boolean;
+  var ErrorCode: Integer;
+begin
+  ShellExec('open','taskkill.exe','/f /im {#MyAppExeName}','',SW_HIDE,ewNoWait,ErrorCode);
+  ShellExec('open','tskill.exe',' {#MyAppName}','',SW_HIDE,ewNoWait,ErrorCode);
+  result := True;
+end;
