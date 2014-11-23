@@ -16,7 +16,7 @@ class KeyboardServer {
 
         virtual void run() = 0; // blocking
         virtual void stop() = 0; // must be invoked from another thread.
-        virtual bool canStart(); // Returns true if constructor ran without failure
+        bool canStart() const; // Returns true if constructor ran without failure
         bool isProcessing() const; // Is performing a key press. 
                                    // Needed because pressKey() must not be interrupted,
                                    // otherwise key stays pressed forever.
