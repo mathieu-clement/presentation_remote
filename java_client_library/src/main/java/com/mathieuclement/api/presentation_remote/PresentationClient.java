@@ -21,6 +21,10 @@ public class PresentationClient extends UDPKeyboardEmulatorClient {
     // Commands as found on:
     // https://support.office.com/en-us/article/Use-keyboard-shortcuts-to-deliver-your-presentation-1524ffce-bd2a-45f4-9a7f-f18b992b93a0
     // ----------------------------------------
+    
+    public void startPresentation() throws IOException {
+        sendKey(KeyCode.FUNCTION_5);
+    }
 
     public void nextSlideOrAnimation() throws IOException {
         sendKey(KeyCode.RIGHT);
