@@ -2,8 +2,8 @@
 #ifndef command_PONG_COMMAND_HPP
 #define command_PONG_COMMAND_HPP
 
-#include "AbstractCommand.hpp"
 #include <QByteArray>
+#include "AbstractCommand.hpp"
 
 namespace keyboard_server {
 namespace commands {

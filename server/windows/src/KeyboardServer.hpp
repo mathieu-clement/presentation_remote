@@ -2,10 +2,10 @@
 #ifndef KEYBOARD_SERVER_HPP
 #define KEYBOARD_SERVER_HPP
 
-#include "KeyboardEmulator.hpp"
-
 #include <QSemaphore>
 #include <QString>
+
+#include "KeyboardEmulator.hpp"
 
 namespace keyboard_server {
 

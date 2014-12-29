@@ -1,6 +1,5 @@
-#include "PongCommand.hpp"
-
 #include <QByteArray>
+#include "PongCommand.hpp"
 
 namespace keyboard_server {
 namespace commands {

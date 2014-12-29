@@ -1,3 +1,7 @@
+#include <QAbstractSocket>
+#include <QHostAddress>
+#include <QByteArray>
+
 #include "UDPKeyboardServer.hpp"
 #include "../KeyboardServer.hpp"
 #include "../KeyboardEmulator.hpp"
@@ -8,10 +12,6 @@
 #include <stdexcept>
 #include <string>
 #include <stdio.h>
-
-#include <QAbstractSocket>
-#include <QHostAddress>
-#include <QByteArray>
 
 namespace keyboard_server {
 namespace qt {

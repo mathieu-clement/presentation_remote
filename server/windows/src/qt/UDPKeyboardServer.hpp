@@ -2,12 +2,12 @@
 #ifndef qt_UDP_KEYBOARD_SERVER_HPP
 #define qt_UDP_KEYBOARD_SERVER_HPP
 
+#include <QHostAddress>
+#include <QUdpSocket>
+
 #include "../KeyboardServer.hpp"
 #include "../KeyboardEmulator.hpp"
 #include "../commands/AbstractCommand.hpp"
-
-#include <QUdpSocket>
-#include <QHostAddress>
 
 namespace keyboard_server {
 namespace qt {

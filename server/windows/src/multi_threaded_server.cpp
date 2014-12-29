@@ -7,30 +7,34 @@
 
 */
 //#include "winsock/UDPKeyboardServer.hpp"
-#include "multi_threaded_server.hpp"
-#include "KeyboardServer.hpp"
-#include "qt/UDPKeyboardServer.hpp"
+#include <QObject>
 #include <iostream>
 #include <inttypes.h>
 #include <signal.h>
 #include <cstdlib>
+#include "multi_threaded_server.hpp"
+#include "KeyboardServer.hpp"
+#include "qt/UDPKeyboardServer.hpp"
 
-#include <QObject>
+#if __unix__
+#include <X11/Xlib.h>
+#include <X11/keysym.h>
+#include <cstdlib>
+#endif
 
 keyboard_server::KeyboardServer* server = NULL;
 WorkerThread* workerThread = NULL;
 
 void siginthandler(int __attribute__((unused)) param)
-{
-    if (server) {
+{    if (server) {
         server->isProcessingSema()->acquire();
         if(server->isProcessing()) {
-        std::cout << "Exiting gracefully (pending request)" << std::endl;
+        //std::cout << "Exiting gracefully (pending request)" << std::endl;
             server->isProcessingSema()->release();
             server->stop();
             delete server;
         } else {
-            std::cout << "Exiting gracefully (kind of, NO pending request)" << std::endl;
+            //std::cout << "Exiting gracefully (kind of, NO pending request)" << std::endl;
             server->isProcessingSema()->release();
             delete server;
             if (workerThread) {
@@ -41,7 +45,6 @@ void siginthandler(int __attribute__((unused)) param)
             exit(EXIT_SUCCESS);
         }
     }
-    //exit(EXIT_SUCCESS);
 }
 
 void WorkerThread::run() {

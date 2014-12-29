@@ -1,5 +1,5 @@
-#include "KeyboardServer.hpp"
 #include <QSemaphore>
+#include "KeyboardServer.hpp"
 
 namespace keyboard_server {
 

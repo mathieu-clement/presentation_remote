@@ -9,15 +9,15 @@
 
 */
 
-#include "tray_icon_app.hpp"
-#include "qt/UDPKeyboardServer.hpp"
-
 #include <QApplication>
 #include <QAbstractSocket>
 #include <QList>
 #include <QMenu>
 #include <QNetworkInterface>
 #include <QSystemTrayIcon>
+
+#include "tray_icon_app.hpp"
+#include "qt/UDPKeyboardServer.hpp"
 
 #include <iostream>
 #include <sstream>
