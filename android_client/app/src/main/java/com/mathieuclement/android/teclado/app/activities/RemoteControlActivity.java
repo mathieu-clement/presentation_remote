@@ -86,7 +86,7 @@ public class RemoteControlActivity extends Activity {
         mTableLayout.addView(row5);
         row5.addView(createRemoteControlButton("\u2b1b", LEFT_COLUMN, BlackScreenAction.class));
         row5.addView(createRemoteControlButton("\u2b1c", CENTER_COLUMN, WhiteScreenAction.class));
-        row5.addView(createRemoteControlButton("\u2328", RIGHT_COLUMN, UnimplementedAction.class)); // Keyboard
+        row5.addView(createRemoteControlButton("\u2328", RIGHT_COLUMN, UnimplementedAction.class)); // Keyboard, TODO
     }
 
     public Button createRemoteControlButton(String text, int column,
