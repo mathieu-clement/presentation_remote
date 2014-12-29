@@ -37,11 +37,11 @@ public class RemoteControlActivity extends Activity {
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             RelativeLayout topLayout = (RelativeLayout) findViewById(R.id.topLayout_remote_control);
             TextView errTxtView = new TextView(this);
-            errTxtView.setText("Server configuration is invalid.");
+            errTxtView.setText("Server configuration is invalid or network is unreachable.");
             topLayout.addView(errTxtView);
             e.printStackTrace();
         } catch (NoSuchMethodException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
-            Toast.makeText(this, "Could not load remote control buttons", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Could not load the remote control buttons.", Toast.LENGTH_LONG).show();
             e.printStackTrace();
         }
     }
