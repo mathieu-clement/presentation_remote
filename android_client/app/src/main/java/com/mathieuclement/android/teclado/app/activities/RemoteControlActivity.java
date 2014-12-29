@@ -61,18 +61,18 @@ public class RemoteControlActivity extends Activity {
         // Row 2
         TableRow row2 = new TableRow(this);
         mTableLayout.addView(row2);
-        row2.addView(createRemoteControlButton("U", CENTER_COLUMN, UpAction.class));
+        row2.addView(createRemoteControlButton("\u2227", CENTER_COLUMN, UpAction.class));
 
         // Row 3
         TableRow row3 = new TableRow(this);
         mTableLayout.addView(row3);
-        row3.addView(createRemoteControlButton("L", LEFT_COLUMN, LeftAction.class));
-        row3.addView(createRemoteControlButton("R", RIGHT_COLUMN, RightAction.class));
+        row3.addView(createRemoteControlButton("<", LEFT_COLUMN, LeftAction.class));
+        row3.addView(createRemoteControlButton(">", RIGHT_COLUMN, RightAction.class));
 
         // Row 4
         TableRow row4 = new TableRow(this);
         mTableLayout.addView(row4);
-        row4.addView(createRemoteControlButton("D", CENTER_COLUMN, DownAction.class));
+        row4.addView(createRemoteControlButton("\u2228", CENTER_COLUMN, DownAction.class));
     }
 
     public Button createRemoteControlButton(String text, int column,
