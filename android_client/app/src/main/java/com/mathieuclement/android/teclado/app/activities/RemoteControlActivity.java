@@ -2,6 +2,7 @@ package com.mathieuclement.android.teclado.app.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.*;
@@ -61,18 +62,18 @@ public class RemoteControlActivity extends Activity {
         // Row 2
         TableRow row2 = new TableRow(this);
         mTableLayout.addView(row2);
-        row2.addView(createRemoteControlButton("\u2227", CENTER_COLUMN, UpAction.class));
+        row2.addView(createRemoteControlButton("\u25b2", CENTER_COLUMN, UpAction.class));
 
         // Row 3
         TableRow row3 = new TableRow(this);
         mTableLayout.addView(row3);
-        row3.addView(createRemoteControlButton("<", LEFT_COLUMN, LeftAction.class));
-        row3.addView(createRemoteControlButton(">", RIGHT_COLUMN, RightAction.class));
+        row3.addView(createRemoteControlButton("\u25c0", LEFT_COLUMN, LeftAction.class));
+        row3.addView(createRemoteControlButton("\u25b6", RIGHT_COLUMN, RightAction.class));
 
         // Row 4
         TableRow row4 = new TableRow(this);
         mTableLayout.addView(row4);
-        row4.addView(createRemoteControlButton("\u2228", CENTER_COLUMN, DownAction.class));
+        row4.addView(createRemoteControlButton("\u25bc", CENTER_COLUMN, DownAction.class));
     }
 
     public Button createRemoteControlButton(String text, int column,
@@ -82,6 +83,9 @@ public class RemoteControlActivity extends Activity {
         RemoteControlButton button = new RemoteControlButton(this);
         button.setLayoutParams(new TableRow.LayoutParams(column));
         button.setText(text);
+        if (text.length() < 4) {
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        }
         Action action = actionClass.getConstructor(PresentationClient.class).newInstance(mReceiver);
         button.setOnClickListener(new ActionOnClickListener(action));
         return button;
