@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.Toast;
+import android.widget.*;
 import com.mathieuclement.android.teclado.app.R;
 import com.mathieuclement.android.teclado.app.actions.*;
 import com.mathieuclement.android.teclado.app.views.RemoteControlButton;
@@ -28,15 +25,20 @@ public class RemoteControlActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remote_control);
         getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setSubtitle("subtitle");
+        getActionBar().setSubtitle("MyComputer"); // TODO
         getActionBar().setDisplayUseLogoEnabled(true);
 
-        mTableLayout = (TableLayout) findViewById(R.id.tableLayout_remote_control);
         try {
-            mReceiver = new PresentationClient("1.2.3.4");
+            mReceiver = new PresentationClient(null); // TODO
+            mTableLayout = (TableLayout) findViewById(R.id.tableLayout_remote_control);
             createButtons();
         } catch (SocketException | UnknownHostException e) {
-            Toast.makeText(this, "Server configuration is invalid", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "Server configuration is invalid", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+            RelativeLayout topLayout = (RelativeLayout) findViewById(R.id.topLayout_remote_control);
+            TextView errTxtView = new TextView(this);
+            errTxtView.setText("Server configuration is invalid.");
+            topLayout.addView(errTxtView);
             e.printStackTrace();
         } catch (NoSuchMethodException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
             Toast.makeText(this, "Could not load remote control buttons", Toast.LENGTH_LONG).show();
@@ -49,27 +51,27 @@ public class RemoteControlActivity extends Activity {
         // Row 1
         TableRow row1 = new TableRow(this);
         mTableLayout.addView(row1);
-        row1.addView(createRemoteControlAction("Start", StartPresentationAction.class));
+        row1.addView(createRemoteControlButton("Start", StartPresentationAction.class));
 
         // Row 2
         TableRow row2 = new TableRow(this);
         mTableLayout.addView(row2);
-        row2.addView(createRemoteControlAction("U", UpAction.class), 1); // 1 = 2nd column = middle column
+        row2.addView(createRemoteControlButton("U", UpAction.class), 1); // 1 = 2nd column = middle column
 
         // Row 3
         TableRow row3 = new TableRow(this);
         mTableLayout.addView(row3);
-        row3.addView(createRemoteControlAction("L", LeftAction.class), 0);
-        row3.addView(createRemoteControlAction("R", RightAction.class), 2); // 2 = 3rd column
+        row3.addView(createRemoteControlButton("L", LeftAction.class), 0);
+        row3.addView(createRemoteControlButton("R", RightAction.class), 2); // 2 = 3rd column
 
         // Row 4
         TableRow row4 = new TableRow(this);
         mTableLayout.addView(row4);
-        row4.addView(createRemoteControlAction("D", DownAction.class), 1);
+        row4.addView(createRemoteControlButton("D", DownAction.class), 1);
     }
 
-    public View createRemoteControlAction(String text,
-                                          Class<? extends Action> actionClass)
+    public Button createRemoteControlButton(String text,
+                                            Class<? extends Action> actionClass)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
         RemoteControlButton button = new RemoteControlButton(this);
