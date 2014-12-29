@@ -18,7 +18,7 @@ android {
 
     defaultConfig {
         applicationId "com.mathieuclement.android.teclado.app"
-        minSdkVersion 15
+        minSdkVersion 19
         targetSdkVersion 21
         versionCode 1
         versionName "1.0"

@@ -20,6 +20,10 @@ public class RemoteControlActivity extends Activity {
     private TableLayout mTableLayout;
     private PresentationClient mReceiver;
 
+    private final static int LEFT_COLUMN = 0;
+    private final static int CENTER_COLUMN = 1;
+    private final static int RIGHT_COLUMN = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,33 +52,35 @@ public class RemoteControlActivity extends Activity {
 
     private void createButtons() throws InvocationTargetException, NoSuchMethodException,
             InstantiationException, IllegalAccessException {
+
         // Row 1
         TableRow row1 = new TableRow(this);
         mTableLayout.addView(row1);
-        row1.addView(createRemoteControlButton("Start", StartPresentationAction.class));
+        row1.addView(createRemoteControlButton("Start", LEFT_COLUMN, StartPresentationAction.class));
 
         // Row 2
         TableRow row2 = new TableRow(this);
         mTableLayout.addView(row2);
-        row2.addView(createRemoteControlButton("U", UpAction.class), 1); // 1 = 2nd column = middle column
+        row2.addView(createRemoteControlButton("U", CENTER_COLUMN, UpAction.class));
 
         // Row 3
         TableRow row3 = new TableRow(this);
         mTableLayout.addView(row3);
-        row3.addView(createRemoteControlButton("L", LeftAction.class), 0);
-        row3.addView(createRemoteControlButton("R", RightAction.class), 2); // 2 = 3rd column
+        row3.addView(createRemoteControlButton("L", LEFT_COLUMN, LeftAction.class));
+        row3.addView(createRemoteControlButton("R", RIGHT_COLUMN, RightAction.class));
 
         // Row 4
         TableRow row4 = new TableRow(this);
         mTableLayout.addView(row4);
-        row4.addView(createRemoteControlButton("D", DownAction.class), 1);
+        row4.addView(createRemoteControlButton("D", CENTER_COLUMN, DownAction.class));
     }
 
-    public Button createRemoteControlButton(String text,
+    public Button createRemoteControlButton(String text, int column,
                                             Class<? extends Action> actionClass)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
         RemoteControlButton button = new RemoteControlButton(this);
+        button.setLayoutParams(new TableRow.LayoutParams(column));
         button.setText(text);
         Action action = actionClass.getConstructor(PresentationClient.class).newInstance(mReceiver);
         button.setOnClickListener(new ActionOnClickListener(action));
