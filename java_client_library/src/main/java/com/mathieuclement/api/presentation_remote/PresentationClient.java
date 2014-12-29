@@ -47,15 +47,15 @@ public class PresentationClient extends UDPKeyboardEmulatorClient {
         sendKey(KeyCode.PERIOD);
     }
 
-    public void toggleScreenWhite() throws Exception {
+    public void toggleScreenWhite() throws IOException {
         sendKey(KeyCode.COMMA);
     }
 
-    public void endPresentation() throws Exception {
+    public void endPresentation() throws IOException {
         sendKey(KeyCode.ESCAPE);
     }
 
-    public void eraseOnScreenAnnotations() throws Exception {
+    public void eraseOnScreenAnnotations() throws IOException {
         sendKey(KeyCode.createFromLetter('E'));
     }
 }

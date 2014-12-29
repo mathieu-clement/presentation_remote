@@ -36,6 +36,12 @@ public class RemoteControlActivity extends Activity {
         try {
             mReceiver = new PresentationClient(null); // TODO
             mTableLayout = (TableLayout) findViewById(R.id.tableLayout_remote_control);
+
+            // Make columns take all the "wideness" available
+            mTableLayout.setColumnStretchable(LEFT_COLUMN, true);
+            mTableLayout.setColumnStretchable(CENTER_COLUMN, true);
+            mTableLayout.setColumnStretchable(RIGHT_COLUMN, true);
+
             createButtons();
         } catch (SocketException | UnknownHostException e) {
             //Toast.makeText(this, "Server configuration is invalid", Toast.LENGTH_LONG).show();
@@ -74,6 +80,12 @@ public class RemoteControlActivity extends Activity {
         TableRow row4 = new TableRow(this);
         mTableLayout.addView(row4);
         row4.addView(createRemoteControlButton("\u25bc", CENTER_COLUMN, DownAction.class));
+
+        // Row 5
+        TableRow row5 = new TableRow(this);
+        mTableLayout.addView(row5);
+        row5.addView(createRemoteControlButton("\u25a0", LEFT_COLUMN, BlackScreenAction.class));
+        row5.addView(createRemoteControlButton("\u25a1", CENTER_COLUMN, WhiteScreenAction.class));
     }
 
     public Button createRemoteControlButton(String text, int column,
