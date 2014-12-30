@@ -17,13 +17,15 @@
             android:background="#bbbbbbff"
             android:layout_alignParentTop="true">
         <ImageButton
+                android:id="@+id/stopwatch_btn_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_menu_revert"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
-                android:contentDescription="Reset stopwatch"/>
+                android:contentDescription="Reset stopwatch"
+                android:onClick="performAction"/>
         <!--
         Font:
         Digital 7 from Sizenko Alexander
@@ -35,16 +37,18 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="00:00"
-                android:textSize="50sp"
+                android:textSize="70sp"
                 android:textColor="#ffffffff"/>
         <ImageButton
+                android:id="@+id/stopwatch_btn_startpause"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_media_play"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="20dp"
-                android:contentDescription="Start / Pause stopwatch"/>
+                android:contentDescription="Start / Pause stopwatch"
+                android:onClick="performAction"/>
     </RelativeLayout>
 
     <ImageView
@@ -75,8 +79,9 @@
                          android:layout_column="0"
                          android:src="@android:drawable/ic_media_previous"
                          android:layout_height="@dimen/remote_control_arrow_key_height"
+                         android:onClick="performAction"
                     />
-            <ImageButton android:id="@+id/rc_btn_start"
+            <ImageButton android:id="@+id/rc_btn_start_presentation"
                          android:layout_column="2"
                          android:src="@drawable/ic_presentation"
                          android:onClick="performAction"
@@ -117,7 +122,8 @@
             <Button android:id="@+id/rc_btn_ok"
                     android:layout_column="0"
                     android:text="OK"
-                    android:layout_width="20dp"/>
+                    android:layout_width="20dp"
+                    android:onClick="performAction"/>
             -->
 
             <Button android:id="@+id/rc_btn_right"
