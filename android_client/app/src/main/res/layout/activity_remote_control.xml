@@ -17,9 +17,9 @@
             android:stretchColumns="*"
             >
             <TableRow>
-                    <Button android:id="@+id/rc_btn_start"
+                    <ImageButton android:id="@+id/rc_btn_start"
                             android:layout_column="0"
-                            android:text="START"
+                            android:src="@drawable/ic_presentation"
                             android:onClick="performAction"
                             />
             </TableRow>
