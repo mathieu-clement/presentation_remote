@@ -1,6 +1,7 @@
 package com.mathieuclement.android.teclado.app.activities;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -23,6 +24,7 @@ public class RemoteControlActivity extends Activity {
 
     private PresentationClient mReceiver;
     private static final String TAG = "RemoteControl";
+    private TextView stopWatchTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,11 @@ public class RemoteControlActivity extends Activity {
 
         try {
             mReceiver = new PresentationClient(null); // TODO
+
+            // Set custom font for stop watch
+            stopWatchTextView = (TextView) findViewById(R.id.txtView_stopwatch);
+            Typeface font = Typeface.createFromAsset(getAssets(), "digital-7.ttf");
+            stopWatchTextView.setTypeface(font);
         } catch (SocketException | UnknownHostException e) {
             //Toast.makeText(this, "Server configuration is invalid", Toast.LENGTH_LONG).show();
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();

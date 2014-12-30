@@ -24,6 +24,11 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
                 android:contentDescription="Reset stopwatch"/>
+        <!--
+        Font:
+        Digital 7 from Sizenko Alexander
+        TODO ( must be credited )
+        -->
         <TextView
                 android:id="@+id/txtView_stopwatch"
                 android:layout_width="wrap_content"
@@ -54,8 +59,8 @@
             android:paddingRight="5dp"
             android:paddingBottom="2dp"
             android:paddingTop="2dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
 
     <TableLayout
             android:id="@+id/tableLayout_remote_control"
