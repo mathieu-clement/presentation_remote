@@ -3,6 +3,7 @@ package com.mathieuclement.android.teclado.app.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.*;
@@ -97,7 +98,7 @@ public class RemoteControlActivity extends Activity {
         button.setLayoutParams(new TableRow.LayoutParams(column));
         button.setText(text);
         if (text.length() < 4) {
-            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
         }
         Action action = actionClass.getConstructor(PresentationClient.class).newInstance(mReceiver);
         button.setOnClickListener(new ActionOnClickListener(action));
@@ -126,5 +127,30 @@ public class RemoteControlActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean dispatchKeyEvent(KeyEvent event) {
+        // React on Volume UP and Volume DOWN
+        // As found on: http://stackoverflow.com/a/2875006/753136
+        int action = event.getAction();
+        int keyCode = event.getKeyCode();
+
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_VOLUME_UP:
+                if(action == KeyEvent.ACTION_DOWN) {
+                    new ActionAsyncTask(this).execute(new RightAction(mReceiver));
+                }
+                return true;
+
+            case KeyEvent.KEYCODE_VOLUME_DOWN:
+                if(action == KeyEvent.ACTION_DOWN) {
+                    new ActionAsyncTask(this).execute(new LeftAction(mReceiver));
+                }
+                return true;
+
+            default:
+                return super.dispatchKeyEvent(event);
+        }
     }
 }
