@@ -19,8 +19,7 @@ import com.mathieuclement.android.teclado.app.TecladoApp;
 import com.mathieuclement.android.teclado.app.actions.*;
 import com.mathieuclement.android.teclado.app.utils.StopWatch;
 import com.mathieuclement.api.presentation_remote.PresentationClient;
-import org.joda.time.format.PeriodFormatter;
-import org.joda.time.format.PeriodFormatterBuilder;
+import org.joda.time.Duration;
 
 import java.net.SocketException;
 import java.net.UnknownHostException;
@@ -34,11 +33,14 @@ public class RemoteControlActivity extends Activity {
     private TextView stopWatchTextView;
     private ImageButton stopWatchStartPauseImageButton;
     private Handler stopWatchHandler = new StopWatchHandler();
+    /*
     private static final PeriodFormatter stopWatchFormatter = new PeriodFormatterBuilder()
-            .minimumPrintedDigits(2).printZeroAlways().appendMinutes()
+            .printZeroAlways()
+            .minimumPrintedDigits(2).appendMinutes()
             .appendSeparator(":")
-            .minimumPrintedDigits(2).printZeroAlways().appendSeconds()
+            .minimumPrintedDigits(2).appendSeconds()
             .toFormatter();
+    */
     private static final int STOPWATCH_REFRESH_RATE = 1000; // ms
     private static final int STOPWATCH_UPDATE_MSG = 1;
     private static final int STOPWATCH_STOP_UPDATES_MSG = 2;
@@ -209,7 +211,10 @@ public class RemoteControlActivity extends Activity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (msg.what == STOPWATCH_UPDATE_MSG) {
-                stopWatchTextView.setText(stopWatchFormatter.print(stopWatch.getElapsedDuration().toPeriod()));
+                Duration duration = stopWatch.getElapsedDuration();
+                int minutes = duration.toStandardMinutes().getMinutes();
+                int seconds = duration.toStandardSeconds().getSeconds() % 60;
+                stopWatchTextView.setText(String.format("%02d:%02d", minutes, seconds));
                 this.sendEmptyMessageDelayed(STOPWATCH_UPDATE_MSG, STOPWATCH_REFRESH_RATE);
             } else if (msg.what == STOPWATCH_STOP_UPDATES_MSG) {
                 this.removeMessages(STOPWATCH_UPDATE_MSG);

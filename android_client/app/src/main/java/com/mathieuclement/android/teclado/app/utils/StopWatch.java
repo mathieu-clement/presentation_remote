@@ -12,6 +12,7 @@ public class StopWatch {
     private Instant startInstant;
     private boolean running = false;
     private boolean started = false;
+    //private Duration totalDuration = new Duration(1000*(60*60)+50); // Starting from 60 minutes and 50 seconds (for tests)
     private Duration totalDuration = new Duration(0);
 
     public void start() {
