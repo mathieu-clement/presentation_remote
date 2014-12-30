@@ -2,6 +2,7 @@ package com.mathieuclement.android.teclado.app.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -21,6 +22,7 @@ public class RemoteControlActivity extends Activity {
 
     private TableLayout mTableLayout;
     private PresentationClient mReceiver;
+    private static final String TAG = "RemoteControl";
 
     private final static int LEFT_COLUMN = 0;
     private final static int CENTER_COLUMN = 1;
@@ -132,6 +134,7 @@ public class RemoteControlActivity extends Activity {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         // React on Volume UP and Volume DOWN
+        // TODO Add setting to use opposite behavior
         // As found on: http://stackoverflow.com/a/2875006/753136
         int action = event.getAction();
         int keyCode = event.getKeyCode();
@@ -139,12 +142,14 @@ public class RemoteControlActivity extends Activity {
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
                 if(action == KeyEvent.ACTION_DOWN) {
+                    Log.d(TAG, "Volume up / Next slide");
                     new ActionAsyncTask(this).execute(new RightAction(mReceiver));
                 }
                 return true;
 
             case KeyEvent.KEYCODE_VOLUME_DOWN:
                 if(action == KeyEvent.ACTION_DOWN) {
+                    Log.d(TAG, "Volume down / Previous slide");
                     new ActionAsyncTask(this).execute(new LeftAction(mReceiver));
                 }
                 return true;
