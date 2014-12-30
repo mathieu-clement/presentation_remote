@@ -14,7 +14,69 @@
             android:id="@+id/tableLayout_remote_control"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:stretchColumns="*"
             >
+            <TableRow>
+                    <Button android:id="@+id/rc_btn_start"
+                            android:layout_column="0"
+                            android:text="START"
+                            android:onClick="performAction"
+                            />
+            </TableRow>
+            <TableRow>
+                    <Button android:id="@+id/rc_btn_up"
+                            android:layout_column="1"
+                            android:text="▲"
+                            android:textSize="30sp"
+                            android:layout_height="70dp"
+                            android:onClick="performAction"
+                            />
+            </TableRow>
+            <TableRow>
+                    <Button android:id="@+id/rc_btn_left"
+                            android:layout_column="0"
+                            android:text="◀"
+                            android:textSize="30sp"
+                            android:layout_height="70dp"
+                            android:onClick="performAction"/>
+
+                    <!--
+                    <Button android:id="@+id/rc_btn_ok"
+                            android:layout_column="0"
+                            android:text="OK"
+                            android:layout_width="20dp"/>
+                    -->
+
+                    <Button android:id="@+id/rc_btn_right"
+                            android:layout_column="2"
+                            android:text="▶"
+                            android:textSize="30sp"
+                            android:layout_height="70dp"
+                            android:onClick="performAction"/>
+            </TableRow>
+            <TableRow>
+                    <Button android:id="@+id/rc_btn_down"
+                            android:layout_column="1"
+                            android:text="▼"
+                            android:textSize="30sp"
+                            android:layout_height="70dp"
+                            android:onClick="performAction"
+                            />
+            </TableRow>
+            <TableRow>
+                    <Button android:id="@+id/rc_btn_black_screen"
+                            android:text="⬛"
+                            android:textSize="30sp"
+                            android:onClick="performAction"/>
+                    <Button android:id="@+id/rc_btn_white_screen"
+                            android:text="⬜"
+                            android:textSize="30sp"
+                            android:onClick="performAction"/>
+                    <ImageButton android:id="@+id/rc_img_btn_keyboard"
+                            android:src="@android:drawable/ic_dialog_dialer"
+                            android:layout_height="match_parent"
+                            android:onClick="performAction"/>
+            </TableRow>
     </TableLayout>
 
 </RelativeLayout>

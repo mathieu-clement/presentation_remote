@@ -3,29 +3,26 @@ package com.mathieuclement.android.teclado.app.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.*;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.mathieuclement.android.teclado.app.R;
+import com.mathieuclement.android.teclado.app.TecladoApp;
 import com.mathieuclement.android.teclado.app.actions.*;
 import com.mathieuclement.api.presentation_remote.PresentationClient;
 
-import java.lang.reflect.InvocationTargetException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
 
 public class RemoteControlActivity extends Activity {
 
-    private TableLayout mTableLayout;
     private PresentationClient mReceiver;
     private static final String TAG = "RemoteControl";
-
-    private final static int LEFT_COLUMN = 0;
-    private final static int CENTER_COLUMN = 1;
-    private final static int RIGHT_COLUMN = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,77 +30,21 @@ public class RemoteControlActivity extends Activity {
         setContentView(R.layout.activity_remote_control);
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setSubtitle("MyComputer"); // TODO
+        getActionBar().setLogo(R.drawable.ic_launcher);
         getActionBar().setDisplayUseLogoEnabled(true);
 
         try {
             mReceiver = new PresentationClient(null); // TODO
-            mTableLayout = (TableLayout) findViewById(R.id.tableLayout_remote_control);
-
-            // Make columns take all the "wideness" available
-            mTableLayout.setColumnStretchable(LEFT_COLUMN, true);
-            mTableLayout.setColumnStretchable(CENTER_COLUMN, true);
-            mTableLayout.setColumnStretchable(RIGHT_COLUMN, true);
-
-            createButtons();
         } catch (SocketException | UnknownHostException e) {
             //Toast.makeText(this, "Server configuration is invalid", Toast.LENGTH_LONG).show();
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
             RelativeLayout topLayout = (RelativeLayout) findViewById(R.id.topLayout_remote_control);
+            topLayout.removeAllViews();
             TextView errTxtView = new TextView(this);
             errTxtView.setText("Server configuration is invalid or network is unreachable.");
             topLayout.addView(errTxtView);
             e.printStackTrace();
-        } catch (NoSuchMethodException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
-            Toast.makeText(this, "Could not load the remote control buttons.", Toast.LENGTH_LONG).show();
-            e.printStackTrace();
         }
-    }
-
-    private void createButtons() throws InvocationTargetException, NoSuchMethodException,
-            InstantiationException, IllegalAccessException {
-
-        // Row 1
-        TableRow row1 = new TableRow(this);
-        mTableLayout.addView(row1);
-        row1.addView(createRemoteControlButton("Start", LEFT_COLUMN, StartPresentationAction.class));
-
-        // Row 2
-        TableRow row2 = new TableRow(this);
-        mTableLayout.addView(row2);
-        row2.addView(createRemoteControlButton("\u25b2", CENTER_COLUMN, UpAction.class));
-
-        // Row 3
-        TableRow row3 = new TableRow(this);
-        mTableLayout.addView(row3);
-        row3.addView(createRemoteControlButton("\u25c0", LEFT_COLUMN, LeftAction.class));
-        row3.addView(createRemoteControlButton("\u25b6", RIGHT_COLUMN, RightAction.class));
-
-        // Row 4
-        TableRow row4 = new TableRow(this);
-        mTableLayout.addView(row4);
-        row4.addView(createRemoteControlButton("\u25bc", CENTER_COLUMN, DownAction.class));
-
-        // Row 5
-        TableRow row5 = new TableRow(this);
-        mTableLayout.addView(row5);
-        row5.addView(createRemoteControlButton("\u2b1b", LEFT_COLUMN, BlackScreenAction.class));
-        row5.addView(createRemoteControlButton("\u2b1c", CENTER_COLUMN, WhiteScreenAction.class));
-        row5.addView(createRemoteControlButton("\u2328", RIGHT_COLUMN, UnimplementedAction.class)); // Keyboard, TODO
-    }
-
-    public Button createRemoteControlButton(String text, int column,
-                                            Class<? extends Action> actionClass)
-            throws NoSuchMethodException, IllegalAccessException,
-            InvocationTargetException, InstantiationException {
-        Button button = new Button(this);
-        button.setLayoutParams(new TableRow.LayoutParams(column));
-        button.setText(text);
-        if (text.length() < 4) {
-            button.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
-        }
-        Action action = actionClass.getConstructor(PresentationClient.class).newInstance(mReceiver);
-        button.setOnClickListener(new ActionOnClickListener(action));
-        return button;
     }
 
 
@@ -141,14 +82,14 @@ public class RemoteControlActivity extends Activity {
 
         switch (keyCode) {
             case KeyEvent.KEYCODE_VOLUME_UP:
-                if(action == KeyEvent.ACTION_DOWN) {
+                if (action == KeyEvent.ACTION_DOWN) {
                     Log.d(TAG, "Volume up / Next slide");
                     new ActionAsyncTask(this).execute(new RightAction(mReceiver));
                 }
                 return true;
 
             case KeyEvent.KEYCODE_VOLUME_DOWN:
-                if(action == KeyEvent.ACTION_DOWN) {
+                if (action == KeyEvent.ACTION_DOWN) {
                     Log.d(TAG, "Volume down / Previous slide");
                     new ActionAsyncTask(this).execute(new LeftAction(mReceiver));
                 }
@@ -157,5 +98,39 @@ public class RemoteControlActivity extends Activity {
             default:
                 return super.dispatchKeyEvent(event);
         }
+    }
+
+    // Method called by buttons from the view
+    public void performAction(View source) {
+        Action action;
+
+        switch (source.getId()) {
+            case R.id.rc_btn_start:
+                action = new StartPresentationAction(mReceiver);
+                break;
+            case R.id.rc_btn_up:
+                action = new UpAction(mReceiver);
+                break;
+            case R.id.rc_btn_left:
+                action = new LeftAction(mReceiver);
+                break;
+            case R.id.rc_btn_right:
+                action = new RightAction(mReceiver);
+                break;
+            case R.id.rc_btn_down:
+                action = new DownAction(mReceiver);
+                break;
+            case R.id.rc_btn_black_screen:
+                action = new BlackScreenAction(mReceiver);
+                break;
+            case R.id.rc_btn_white_screen:
+                action = new WhiteScreenAction(mReceiver);
+                break;
+            default:
+                Toast.makeText(TecladoApp.getContext(), "This action is not yet implemented.", Toast.LENGTH_SHORT).show();
+                return;
+        }
+
+        new ActionAsyncTask(this).execute(action);
     }
 }
