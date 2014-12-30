@@ -10,26 +10,87 @@
         android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context=".RemoteControlActivity">
 
+    <RelativeLayout
+            android:id="@+id/layout_stopwatch"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#bbbbbbff">
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_revert"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="20dp"
+                android:contentDescription="Reset stopwatch"/>
+        <TextView
+                android:id="@+id/txtView_stopwatch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="00:00"
+                android:textSize="50sp"
+                android:textColor="#ffffffff"/>
+        <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_media_play"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:contentDescription="Start / Pause stopwatch"/>
+    </RelativeLayout>
+
+    <ImageView
+            android:id="@+id/divider"
+            android:src="@android:drawable/divider_horizontal_dark"
+            android:background="#aaaaaa"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_stopwatch"
+            android:scaleType="fitXY"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
     <TableLayout
             android:id="@+id/tableLayout_remote_control"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/divider"
+            android:layout_alignParentBottom="true"
             android:stretchColumns="*"
             >
-        <TableRow>
-            <ImageButton android:id="@+id/rc_btn_start"
-                         android:layout_column="0"
-                         android:src="@drawable/ic_presentation"
-                         android:onClick="performAction"
-                    />
-        </TableRow>
         <TableRow>
             <ImageButton android:id="@+id/rc_btn_first_slide"
                          android:layout_column="0"
                          android:src="@android:drawable/ic_media_previous"
                          android:layout_height="@dimen/remote_control_arrow_key_height"
-
                     />
+            <ImageButton android:id="@+id/rc_btn_start"
+                         android:layout_column="2"
+                         android:src="@drawable/ic_presentation"
+                         android:onClick="performAction"
+                    />
+        </TableRow>
+        <TableRow>
+            <Button android:id="@+id/rc_btn_black_screen"
+                    android:text="⬛"
+                    android:textSize="@dimen/remote_control_button_fontsize"
+                    android:onClick="performAction"/>
+            <Button android:id="@+id/rc_btn_white_screen"
+                    android:text="⬜"
+                    android:textSize="@dimen/remote_control_button_fontsize"
+                    android:onClick="performAction"/>
+            <ImageButton android:id="@+id/rc_img_btn_keyboard"
+                         android:src="@android:drawable/ic_dialog_dialer"
+                         android:layout_height="match_parent"
+                         android:onClick="performAction"/>
+        </TableRow>
+        <TableRow>
             <Button android:id="@+id/rc_btn_up"
                     android:layout_column="1"
                     android:text="▲"
@@ -69,49 +130,6 @@
                     android:onClick="performAction"
                     />
         </TableRow>
-        <TableRow>
-            <Button android:id="@+id/rc_btn_black_screen"
-                    android:text="⬛"
-                    android:textSize="@dimen/remote_control_button_fontsize"
-                    android:onClick="performAction"/>
-            <Button android:id="@+id/rc_btn_white_screen"
-                    android:text="⬜"
-                    android:textSize="@dimen/remote_control_button_fontsize"
-                    android:onClick="performAction"/>
-            <ImageButton android:id="@+id/rc_img_btn_keyboard"
-                         android:src="@android:drawable/ic_dialog_dialer"
-                         android:layout_height="match_parent"
-                         android:onClick="performAction"/>
-        </TableRow>
     </TableLayout>
-
-    <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/tableLayout_remote_control"
-            android:background="#bbbbbbff">
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_revert"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="20dp"/>
-        <TextView
-                android:id="@+id/txtView_stopwatch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:text="00:00"
-                android:textSize="50sp"
-                android:textColor="#ffffffff"/>
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_media_play"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="20dp"/>
-    </RelativeLayout>
 
 </RelativeLayout>
