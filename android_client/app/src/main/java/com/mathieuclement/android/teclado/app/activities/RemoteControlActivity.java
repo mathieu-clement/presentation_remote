@@ -28,7 +28,7 @@ public class RemoteControlActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_remote_control);
-        getActionBar().setHomeButtonEnabled(true);
+        //getActionBar().setHomeButtonEnabled(true);
         getActionBar().setSubtitle("MyComputer"); // TODO
         getActionBar().setLogo(R.drawable.ic_launcher);
         getActionBar().setDisplayUseLogoEnabled(true);
@@ -60,15 +60,26 @@ public class RemoteControlActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Toast.makeText(this, "Home button clicked", Toast.LENGTH_SHORT).show();
-            return true;
+        // TODO
+
+        switch (item.getItemId()) {
+            case R.id.action_help:
+                Toast.makeText(this, "-- Help --", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_settings:
+                Toast.makeText(this, "-- Settings --", Toast.LENGTH_SHORT).show();
+                break;
+            /*
+            case android.R.id.home:
+                Toast.makeText(this, "-- Home --", Toast.LENGTH_SHORT).show();
+                break;
+            */
+            default:
+                return false;
         }
 
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
     @Override
