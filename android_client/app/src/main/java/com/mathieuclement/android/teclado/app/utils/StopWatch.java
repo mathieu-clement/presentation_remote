@@ -24,6 +24,7 @@ public class StopWatch {
     public void reset() {
         this.running = false;
         this.started = false;
+        totalDuration = new Duration(0);
     }
 
     public void pause() {
@@ -32,6 +33,7 @@ public class StopWatch {
     }
 
     public void resume() {
+        if(!isStarted()) throw new IllegalStateException("Stopwatch cannot be resumed because it wasn't started.");
         start();
     }
 
@@ -44,6 +46,6 @@ public class StopWatch {
     }
 
     public Duration getElapsedDuration() {
-        return new Duration(startInstant, new Instant());
+        return new Duration(startInstant, new Instant()).plus(totalDuration);
     }
 }

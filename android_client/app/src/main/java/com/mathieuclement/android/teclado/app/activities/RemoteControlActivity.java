@@ -170,12 +170,12 @@ public class RemoteControlActivity extends Activity {
             case R.id.stopwatch_btn_reset:
                 stopWatch.reset();
                 stopWatchTextView.setText("00:00");
+                updateStopWatchPlayPauseButtonIcon();
                 stopWatchHandler.sendEmptyMessage(STOPWATCH_STOP_UPDATES_MSG);
                 return;
             case R.id.stopwatch_btn_startpause:
                 if (stopWatch.isRunning()) {
                     stopWatch.pause();
-                    stopWatchStartPauseImageButton.setImageResource(android.R.drawable.ic_media_play);
                     stopWatchHandler.sendEmptyMessage(STOPWATCH_STOP_UPDATES_MSG);
                 } else {
                     if (stopWatch.isStarted()) {
@@ -183,9 +183,9 @@ public class RemoteControlActivity extends Activity {
                     } else {
                         stopWatch.start();
                     }
-                    stopWatchStartPauseImageButton.setImageResource(android.R.drawable.ic_media_pause);
                     stopWatchHandler.sendEmptyMessage(STOPWATCH_UPDATE_MSG);
                 }
+                updateStopWatchPlayPauseButtonIcon();
                 return;
             default:
                 Toast.makeText(TecladoApp.getContext(), "This action is not yet implemented.", Toast.LENGTH_SHORT).show();
@@ -193,6 +193,15 @@ public class RemoteControlActivity extends Activity {
         }
 
         new ActionAsyncTask(this).execute(action);
+    }
+
+    // Update stopwatch play / pause icon based on stopwatch current state
+    private void updateStopWatchPlayPauseButtonIcon() {
+        if (stopWatch.isRunning()) {
+            stopWatchStartPauseImageButton.setImageResource(android.R.drawable.ic_media_pause);
+        } else {
+            stopWatchStartPauseImageButton.setImageResource(android.R.drawable.ic_media_play);
+        }
     }
 
     private class StopWatchHandler extends Handler {
