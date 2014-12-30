@@ -137,6 +137,9 @@ public class RemoteControlActivity extends Activity {
             case R.id.rc_btn_white_screen:
                 action = new WhiteScreenAction(mReceiver);
                 break;
+            case R.id.rc_btn_first_slide:
+                action = new FirstSlideAction(mReceiver);
+                break;
             default:
                 Toast.makeText(TecladoApp.getContext(), "This action is not yet implemented.", Toast.LENGTH_SHORT).show();
                 return;
