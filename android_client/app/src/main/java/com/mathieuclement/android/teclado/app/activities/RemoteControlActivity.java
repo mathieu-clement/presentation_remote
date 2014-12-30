@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.widget.*;
 import com.mathieuclement.android.teclado.app.R;
 import com.mathieuclement.android.teclado.app.actions.*;
-import com.mathieuclement.android.teclado.app.views.RemoteControlButton;
 import com.mathieuclement.api.presentation_remote.PresentationClient;
 
 import java.lang.reflect.InvocationTargetException;
@@ -96,7 +95,7 @@ public class RemoteControlActivity extends Activity {
                                             Class<? extends Action> actionClass)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
-        RemoteControlButton button = new RemoteControlButton(this);
+        Button button = new Button(this);
         button.setLayoutParams(new TableRow.LayoutParams(column));
         button.setText(text);
         if (text.length() < 4) {
@@ -134,6 +133,7 @@ public class RemoteControlActivity extends Activity {
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
         // React on Volume UP and Volume DOWN
+        // This can be tried in the emulator by pressing + and - on the numpad
         // TODO Add setting to use opposite behavior
         // As found on: http://stackoverflow.com/a/2875006/753136
         int action = event.getAction();
