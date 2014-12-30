@@ -14,7 +14,8 @@
             android:id="@+id/layout_stopwatch"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#bbbbbbff">
+            android:background="#bbbbbbff"
+            android:layout_alignParentTop="true">
         <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -94,7 +95,7 @@
             <Button android:id="@+id/rc_btn_up"
                     android:layout_column="1"
                     android:text="▲"
-                    android:textSize="@dimen/remote_control_button_fontsize"
+                    android:textSize="50sp"
                     android:layout_height="@dimen/remote_control_arrow_key_height"
                     android:onClick="performAction"
                     />
@@ -125,7 +126,7 @@
             <Button android:id="@+id/rc_btn_down"
                     android:layout_column="1"
                     android:text="▼"
-                    android:textSize="@dimen/remote_control_button_fontsize"
+                    android:textSize="50sp"
                     android:layout_height="@dimen/remote_control_arrow_key_height"
                     android:onClick="performAction"
                     />
