@@ -1,6 +1,7 @@
 package com.mathieuclement.android.teclado.app.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,9 +20,11 @@ import com.mathieuclement.android.teclado.app.R;
 import com.mathieuclement.android.teclado.app.TecladoApp;
 import com.mathieuclement.android.teclado.app.actions.*;
 import com.mathieuclement.android.teclado.app.utils.StopWatch;
+import com.mathieuclement.api.presentation_remote.KeyCode;
 import com.mathieuclement.api.presentation_remote.PresentationClient;
 import org.joda.time.Duration;
 
+import java.io.IOException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -56,7 +60,7 @@ public class RemoteControlActivity extends Activity {
         getActionBar().setDisplayUseLogoEnabled(true);
 
         try {
-            mReceiver = new PresentationClient(null); // TODO
+            mReceiver = new PresentationClient("172.16.123.140"); // TODO
 
             // Set custom font for reset watch
             stopWatchTextView = (TextView) findViewById(R.id.txtView_stopwatch);
@@ -124,6 +128,7 @@ public class RemoteControlActivity extends Activity {
             case KeyEvent.KEYCODE_VOLUME_UP:
                 if (action == KeyEvent.ACTION_DOWN) {
                     Log.d(TAG, "Volume up / Next slide");
+                    Toast.makeText(this, "Next slide", Toast.LENGTH_SHORT).show();
                     new ActionAsyncTask(this).execute(new RightAction(mReceiver));
                 }
                 return true;
@@ -131,6 +136,7 @@ public class RemoteControlActivity extends Activity {
             case KeyEvent.KEYCODE_VOLUME_DOWN:
                 if (action == KeyEvent.ACTION_DOWN) {
                     Log.d(TAG, "Volume down / Previous slide");
+                    Toast.makeText(this, "Previous slide", Toast.LENGTH_SHORT).show();
                     new ActionAsyncTask(this).execute(new LeftAction(mReceiver));
                 }
                 return true;
@@ -169,6 +175,10 @@ public class RemoteControlActivity extends Activity {
             case R.id.rc_btn_first_slide:
                 action = new FirstSlideAction(mReceiver);
                 break;
+            case R.id.rc_img_btn_keyboard:
+                InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                return;
             case R.id.stopwatch_btn_reset:
                 stopWatch.reset();
                 stopWatchTextView.setText("00:00");
@@ -220,6 +230,44 @@ public class RemoteControlActivity extends Activity {
                 this.removeMessages(STOPWATCH_UPDATE_MSG);
             }
         }
+    }
+
+    @Override
+    public boolean onKeyUp(final int rawKeyCode, final KeyEvent event) {
+        // Ignore power button, back button, equal sign, etc.
+        if (rawKeyCode < KeyEvent.KEYCODE_0 || rawKeyCode > KeyEvent.KEYCODE_Z) return false;
+
+        new ActionAsyncTask(this).execute(new Action(mReceiver) {
+            @Override
+            public void execute() throws ActionException {
+                try {
+                    KeyCode libKeyCode;
+
+                    switch (rawKeyCode) {
+                        case KeyEvent.KEYCODE_ENTER:
+                            libKeyCode = KeyCode.ENTER;
+                            break;
+
+                        case KeyEvent.KEYCODE_DEL: // Backspace
+                            libKeyCode = KeyCode.BACKSPACE;
+                            break;
+
+                        default:
+                            char c = (char) event.getUnicodeChar();
+                            if ((event.isShiftPressed() || event.isCapsLockOn()) && Character.isAlphabetic(c)) {
+                                c = Character.toUpperCase(c);
+                            }
+                            libKeyCode = KeyCode.createFromChar(c);
+                    }
+                    this.receiver.sendKey(libKeyCode);
+                } catch (IOException e) {
+                    throw new ActionException("Could not send key to the server");
+                } catch (Exception e) {
+                    throw new ActionException("Server doesn't know what to do with key " + rawKeyCode);
+                }
+            }
+        });
+        return true;
     }
 
     @Override
