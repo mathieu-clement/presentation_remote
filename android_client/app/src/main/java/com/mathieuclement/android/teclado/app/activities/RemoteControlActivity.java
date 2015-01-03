@@ -235,7 +235,9 @@ public class RemoteControlActivity extends Activity {
     @Override
     public boolean onKeyUp(final int rawKeyCode, final KeyEvent event) {
         // Ignore power button, back button, equal sign, etc.
-        if (rawKeyCode < KeyEvent.KEYCODE_0 || rawKeyCode > KeyEvent.KEYCODE_Z) return false;
+        if (rawKeyCode == KeyEvent.KEYCODE_DEL) {
+            // Accept back space
+        } else if (rawKeyCode < KeyEvent.KEYCODE_0 || rawKeyCode > KeyEvent.KEYCODE_Z) return false;
 
         new ActionAsyncTask(this).execute(new Action(mReceiver) {
             @Override
