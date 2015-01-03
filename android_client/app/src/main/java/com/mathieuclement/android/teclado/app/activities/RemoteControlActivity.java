@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.PowerManager;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -50,6 +51,8 @@ public class RemoteControlActivity extends Activity {
     private static final int STOPWATCH_STOP_UPDATES_MSG = 2;
     private StopWatch stopWatch = new StopWatch();
 
+    protected PowerManager.WakeLock mWakeLock; // keep screen on
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,11 @@ public class RemoteControlActivity extends Activity {
             stopWatchTextView.setTypeface(font);
 
             stopWatchStartPauseImageButton = (ImageButton) findViewById(R.id.stopwatch_btn_startpause);
+
+            // Keep screen on
+            final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
+            this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "Teclado");
+            this.mWakeLock.acquire();
         } catch (SocketException | UnknownHostException e) {
             //Toast.makeText(this, "Server configuration is invalid", Toast.LENGTH_LONG).show();
             Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -285,5 +293,11 @@ public class RemoteControlActivity extends Activity {
         super.onResume();
         if (stopWatch.isRunning())
             stopWatchHandler.sendEmptyMessage(STOPWATCH_UPDATE_MSG);
+    }
+
+    @Override
+    public void onDestroy() {
+        this.mWakeLock.release();
+        super.onDestroy();
     }
 }
