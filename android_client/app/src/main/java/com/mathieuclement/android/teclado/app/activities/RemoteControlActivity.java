@@ -256,7 +256,8 @@ public class RemoteControlActivity extends Activity {
 
                         default:
                             char c = (char) event.getUnicodeChar();
-                            if ((event.isShiftPressed() || event.isCapsLockOn()) && Character.isAlphabetic(c)) {
+                            if ((event.isShiftPressed() || event.isCapsLockOn() || event.isMetaPressed())
+                                    && Character.isAlphabetic(c)) {
                                 c = Character.toUpperCase(c);
                             }
                             libKeyCode = KeyCode.createFromChar(c);
