@@ -28,7 +28,7 @@ public class UDPSwingTest {
         client.sendString(text);
         client.sendKey(KeyCode.ENTER);
 
-        int maxTime = text.length(); // seconds. One second per letter.
+        int maxTime = 3 + text.length() / 2; // seconds. Half a second per letter.
 
         int nbSeconds = 0;
         while (!runnable.hasFinished() && nbSeconds < maxTime) {
