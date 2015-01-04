@@ -318,7 +318,7 @@ public class RemoteControlActivity extends Activity {
             // Accept back space
         } else if (rawKeyCode < KeyEvent.KEYCODE_0
                 || rawKeyCode > KeyEvent.KEYCODE_Z)
-            return false;
+            return super.onKeyUp(rawKeyCode, event);
 
         new ActionAsyncTask(this).execute(new Action(mReceiver) {
             @Override
