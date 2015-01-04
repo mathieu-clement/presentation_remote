@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <TableLayout
+            android:id="@+id/tableLayout_remote_control"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/divider"
+            android:stretchColumns="*" >
+
+            <TableRow >
+
+                <ImageButton
+                    android:layout_width="74dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_presentation" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Start presentation"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow >
+
+                <ImageButton
+                    android:layout_width="74dp"
+                    android:layout_height="match_parent"
+                    android:src="@android:drawable/ic_media_previous" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Go to 1st slide"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow >
+
+                <Button
+                    android:layout_width="74dp"
+                    android:layout_height="match_parent"
+                    android:text="⬛"
+                    android:textSize="@dimen/remote_control_button_fontsize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Display a blank black slide"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow >
+
+                <Button
+                    android:layout_width="74dp"
+                    android:layout_height="match_parent"
+                    android:text="⬜"
+                    android:textSize="@dimen/remote_control_button_fontsize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Display a blank white slide"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow >
+
+                <ImageButton
+                    android:layout_width="74dp"
+                    android:layout_height="match_parent"
+                    android:src="@android:drawable/ic_dialog_dialer" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Keyboard mode"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow >
+
+                <Button
+                    android:layout_width="74dp"
+                    android:layout_height="match_parent"
+                    android:text="▶"
+                    android:textSize="@dimen/remote_control_button_fontsize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Next Slide/Press right arrow"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow >
+
+                <Button
+                    android:layout_width="74dp"
+                    android:layout_height="match_parent"
+                    android:text="◀"
+                    android:textSize="@dimen/remote_control_button_fontsize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Previous Slide / Press left arrow"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:layout_width="74dp"
+                    android:layout_height="match_parent"
+                    android:text="▲"
+                    android:textSize="@dimen/remote_control_button_fontsize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Previous Slide/Press top arrow"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+            </TableRow>
+
+            <TableRow>
+
+                <Button
+                    android:layout_width="74dp"
+                    android:layout_height="match_parent"
+                    android:text="▼"
+                    android:textSize="@dimen/remote_control_button_fontsize" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="Next Slide/Press bottom arrow"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="14sp" />
+            </TableRow>
+            
+        </TableLayout>
+    </ScrollView>
+
+</RelativeLayout>
