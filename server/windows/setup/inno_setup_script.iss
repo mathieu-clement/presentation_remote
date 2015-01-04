@@ -21,7 +21,7 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-OutputDir=C:\Users\mathieu\git_repositories\presentation_remote\windows\setup\output
+OutputDir=C:\Users\mathieu\git_repositories\presentation_remote\server\windows\setup\output
 OutputBaseFilename=presentation_remote_server_setup
 Compression=lzma
 SolidCompression=yes
@@ -36,8 +36,8 @@ Name: "startauto"; Description: "Start automatically with my session"; GroupDesc
 
 
 [Files]
-Source: "C:\Users\mathieu\git_repositories\presentation_remote\windows\build\tray_icon_app.exe"; DestDir: "{app}"; DestName: "{#MyAppExeName}"; Flags: ignoreversion
-Source: "C:\Users\mathieu\git_repositories\presentation_remote\windows\dll\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\mathieu\git_repositories\presentation_remote\server\windows\build\tray_icon_app.exe"; DestDir: "{app}"; DestName: "{#MyAppExeName}"; Flags: ignoreversion
+Source: "C:\Users\mathieu\git_repositories\presentation_remote\server\windows\dll\*.dll"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "C:\Users\mathieu\git_repositories\presentation_remote\windows\resources\*"; DestDir: "{app}/resources"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

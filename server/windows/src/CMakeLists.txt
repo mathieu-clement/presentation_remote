@@ -17,11 +17,7 @@ find_package(Qt5Widgets REQUIRED)
 #set(Qt5Network_DIR, D:/Qt/5.3/mingw482_32/lib/cmake/Qt5Network)
 
 # Native libraries
-IF (WIN32)
 find_library(ws2_32_LIBRARY_PATH ws2_32)
-ELSEIF (UNIX)
-find_package(X11 REQUIRED)
-ENDIF()
 
 #########################
 ## SINGLE THREADED
@@ -43,11 +39,7 @@ add_executable (multi_threaded_server
                 qt/UDPKeyboardServer.cpp
                 commands/PongCommand.cpp
                 multi_threaded_server.cpp)
-IF (UNIX)
-target_link_libraries(multi_threaded_server -lstdc++ -lX11)
-ELSE()
 target_link_libraries(multi_threaded_server -lstdc++)
-ENDIF()
 qt5_use_modules(multi_threaded_server Network Concurrent)
                 
 ########################
@@ -63,12 +55,9 @@ add_executable (tray_icon_app
                 tray_icon_app.cpp
                 ${ResourceSources})
 
-IF (WIN32)
-target_link_libraries(tray_icon_app -lstdc++
+target_link_libraries(tray_icon_app #-lstdc++
+                      -static-libgcc -static-libstdc++
                       -Wl,-subsystem,windows) # this line avoids the CLI to show up on Windows
-ELSE()
-target_link_libraries(tray_icon_app -lstdc++)
-ENDIF()                                    
 qt5_use_modules(tray_icon_app Network Concurrent Widgets)
                 
 #list( APPEND CMAKE_CXX_FLAGS "-std=c++0x ${CMAKE_CXX_FLAGS} -g -Wall -Wextra")
