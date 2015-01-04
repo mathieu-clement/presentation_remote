@@ -37,7 +37,7 @@ Name: "startauto"; Description: "Start automatically with my session"; GroupDesc
 
 [Files]
 Source: "C:\Users\mathieu\git_repositories\presentation_remote\server\windows\build\tray_icon_app.exe"; DestDir: "{app}"; DestName: "{#MyAppExeName}"; Flags: ignoreversion
-Source: "C:\Users\mathieu\git_repositories\presentation_remote\server\windows\dll\*.dll"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\mathieu\git_repositories\presentation_remote\server\windows\dll\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ;Source: "C:\Users\mathieu\git_repositories\presentation_remote\windows\resources\*"; DestDir: "{app}/resources"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 

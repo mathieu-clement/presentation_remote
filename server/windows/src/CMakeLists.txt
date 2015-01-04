@@ -55,7 +55,8 @@ add_executable (tray_icon_app
                 tray_icon_app.cpp
                 ${ResourceSources})
 
-target_link_libraries(tray_icon_app #-lstdc++
+target_link_libraries(tray_icon_app -lstdc++
+                      -static
                       -static-libgcc -static-libstdc++
                       -Wl,-subsystem,windows) # this line avoids the CLI to show up on Windows
 qt5_use_modules(tray_icon_app Network Concurrent Widgets)
