@@ -1,6 +1,7 @@
 package com.mathieuclement.presentation.javasrv;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 public class ServerApp {
@@ -22,6 +23,7 @@ public class ServerApp {
             ModifierAndKeyCode mk = server.receiveOne();
             int modifier = mk.getModifier();
             int keyCode = mk.getKeyCode();
+            keyCode = translateFromWindows(keyCode);
 
             if(modifier != 0) {
                 robot.keyPress(modifier);
@@ -37,6 +39,16 @@ public class ServerApp {
                 robot.delay(DELAY);
                 robot.keyRelease(modifier);
             }
+        }
+    }
+
+    private static int translateFromWindows(int keyCode) {
+        switch(keyCode) {
+            case -66: return KeyEvent.VK_PERIOD;
+            case  13: return KeyEvent.VK_ENTER;
+
+            default:
+                return keyCode;
         }
     }
 }
