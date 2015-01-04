@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+            android:key="host"
+            android:title="Hostname or IP address"/>
+    <EditTextPreference
+            android:key="port"
+            android:title="Port"
+            android:defaultValue="12000"
+            android:inputType="number"
+            android:maxLength="5"/>
+    <CheckBoxPreference
+            android:key="keepDisplayOn"
+            android:title="Keep display on"
+            android:defaultValue="false"/>
+    <CheckBoxPreference
+            android:key="volPlusIsNextSlide"
+            android:summaryOn="Button 'Vol +' triggers 'Next slide'"
+            android:summaryOff="Button 'Vol +' triggers 'Previous slide'"
+            android:defaultValue="true"/>
+
+</PreferenceScreen>
