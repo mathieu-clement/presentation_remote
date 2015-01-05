@@ -58,11 +58,26 @@ public class RemoteControlActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_remote_control);
-        init();
+        //setContentView(R.layout.activity_remote_control);
+        //init();
     }
 
     private void init() {
+        // Set custom font for reset watch
+        stopWatchTextView = (TextView) findViewById(R.id.txtView_stopwatch);
+        if(stopWatchTextView == null) {
+            setContentView(R.layout.activity_remote_control);
+            stopWatchTextView = (TextView) findViewById(R.id.txtView_stopwatch);
+        }
+        Typeface font = Typeface.createFromAsset(getAssets(),
+                "digital-7 (mono).ttf");
+        stopWatchTextView.setTypeface(font);
+
+        getActionBar().setLogo(R.drawable.ic_launcher);
+        getActionBar().setDisplayUseLogoEnabled(true);
+
+        stopWatchStartPauseImageButton = (ImageButton) findViewById(R.id.stopwatch_btn_startpause);
+
         appPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         setSettings();
         if ("".equals(host)) {
@@ -71,24 +86,10 @@ public class RemoteControlActivity extends Activity {
             return;
         }
 
-        // load settings
-        //getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setLogo(R.drawable.ic_launcher);
-        getActionBar().setDisplayUseLogoEnabled(true);
-
         refreshSettings();
-
-        // Set custom font for reset watch
-        stopWatchTextView = (TextView) findViewById(R.id.txtView_stopwatch);
-        Typeface font = Typeface.createFromAsset(getAssets(),
-                "digital-7 (mono).ttf");
-        stopWatchTextView.setTypeface(font);
-
-        stopWatchStartPauseImageButton = (ImageButton) findViewById(R.id.stopwatch_btn_startpause);
     }
 
     private void refreshSettings() {
-        setSettings();
         getActionBar().setSubtitle(host);
 
         new AsyncTask<Void, Exception, Void>() {
@@ -121,8 +122,6 @@ public class RemoteControlActivity extends Activity {
         } else if (!mustKeepDisplayOn && this.mWakeLock != null) {
             this.mWakeLock.release();
         }
-
-        setContentView(R.layout.activity_remote_control);
     }
 
     private void setSettings() {
@@ -299,7 +298,7 @@ public class RemoteControlActivity extends Activity {
             super.handleMessage(msg);
             if (msg.what == STOPWATCH_UPDATE_MSG) {
                 Duration duration = stopWatch.getElapsedDuration();
-                int minutes = duration.toStandardMinutes().getMinutes();
+                int minutes = duration.toStandardMinutes().getMinutes() % 100;
                 int seconds = duration.toStandardSeconds().getSeconds() % 60;
                 stopWatchTextView.setText(String.format("%02d:%02d", minutes,
                         seconds));
@@ -370,12 +369,7 @@ public class RemoteControlActivity extends Activity {
         if (stopWatch.isRunning())
             stopWatchHandler.sendEmptyMessage(STOPWATCH_UPDATE_MSG);
 
-        if (TecladoPreferenceActivity.dirtyFlag) {
-            // Clear flag
-            TecladoPreferenceActivity.dirtyFlag = false;
-            // Update with new settings
-            refreshSettings();
-        }
+        init();
     }
 
     @Override

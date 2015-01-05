@@ -11,9 +11,6 @@ import org.apache.commons.validator.routines.DomainValidator;
 import org.apache.commons.validator.routines.InetAddressValidator;
 
 public class TecladoPreferenceActivity extends PreferenceActivity {
-    // Settings have been changed
-    static boolean dirtyFlag = false;
-
     // Preference names
     static final String PREF_HOST = "host";
     static final String PREF_PORT = "port";
@@ -53,8 +50,6 @@ public class TecladoPreferenceActivity extends PreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
             if (newValue == null) return false; // invalid
-
-            dirtyFlag = true;
 
             if (preference == hostPref) {
                 String strValue = (String) newValue;
